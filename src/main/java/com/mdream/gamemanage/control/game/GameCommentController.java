@@ -58,7 +58,6 @@ public class GameCommentController {
 			reply.put("message","错误异常");
 		}
 		
-	
 		model.addAttribute("rdata", reply);
 		
 		return "account/game/comment/success";
