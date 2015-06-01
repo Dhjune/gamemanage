@@ -18,8 +18,8 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import com.google.gson.annotations.Expose;
-@Entity
-@Table(name = "default_comment")
+//@Entity
+//@Table(name = "default_comment")
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 @DynamicInsert(value=true)
 @DynamicUpdate(value=true)
