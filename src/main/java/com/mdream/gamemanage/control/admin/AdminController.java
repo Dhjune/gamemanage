@@ -28,7 +28,7 @@ public class AdminController {
 	
 	
 	@RequestMapping(value="admin/index")
-//	@Permission
+	@Permission
 	private String index(){
 		
 		return  "account/admin/index";

@@ -46,19 +46,21 @@
 	        <bean class="org.springframework.http.converter.json.GsonHttpMessageConverter"/>  
 	    </mvc:message-converters> 
     </mvc:annotation-driven>
-    <!-- 
+   
 	<mvc:interceptors>	
+	<!-- 
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
 			<bean class="com.mdream.gamemanage.common.inteceptor.FormRepeatInterceptor"/>
 		</mvc:interceptor>	
+	 -->	
 		<mvc:interceptor>		
 			<mvc:mapping path="/**" />
 			<bean class="com.mdream.gamemanage.common.inteceptor.PermissionInteceptor"></bean>
 		</mvc:interceptor>
 		
 	</mvc:interceptors>	
-	 -->
+	 <!--  -->
 	<aop:aspectj-autoproxy />
 	<!-- 
 	<mvc:velocity-configurer  resource-loader-path="/views/" />  

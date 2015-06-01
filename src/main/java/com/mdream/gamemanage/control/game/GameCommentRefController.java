@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mdream.gamemanage.common.inteceptor.Permission;
 import com.mdream.gamemanage.common.tools.ToolsFactory;
 import com.mdream.gamemanage.model.game.GameCommentRef;
 import com.mdream.gamemanage.model.resulttransformer.GameCommentTrans;
@@ -36,6 +37,7 @@ public class GameCommentRefController {
 	}
 	
 	@RequestMapping(value="create",method=RequestMethod.POST)
+	@Permission
 	public String  create(GameCommentTrans trans,Model model)  throws Exception{
 		gameCommentRefServiceImp.insert(trans);
 		model.addAttribute("game", gameServiceImp.getGameInfo(trans.getGameId()));
@@ -44,12 +46,14 @@ public class GameCommentRefController {
 	}
 	
 	@RequestMapping(value="update",method=RequestMethod.GET)
+	@Permission
 	public String update(Model model){
 		return "";
 	}
 	
 
 	@RequestMapping(value="get",method=RequestMethod.POST)
+	@Permission
 	@ResponseBody
 	public String get(@RequestParam(value="gameId") int gameId,@RequestParam(value="commentId") int commentId){
 		
@@ -65,6 +69,7 @@ public class GameCommentRefController {
 	}
 	
 	@RequestMapping(value="delete")	
+	@Permission
 	public String delete(GameCommentTrans trans,Model model)  throws Exception{
 		
 		gameCommentRefServiceImp.delete(trans);
@@ -74,6 +79,7 @@ public class GameCommentRefController {
 	}
 	
 	@RequestMapping(value="list",method=RequestMethod.POST)
+	@Permission
 	public String  list(HttpServletRequest res)  throws Exception {
 		
 		return "";

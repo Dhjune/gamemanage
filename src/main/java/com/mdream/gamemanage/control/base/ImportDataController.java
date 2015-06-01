@@ -48,6 +48,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mdream.gamemanage.common.inteceptor.Permission;
 import com.mdream.gamemanage.model.client.Slide;
 import com.mdream.gamemanage.model.client.SlideShow;
 import com.mdream.gamemanage.model.game.Game;
@@ -111,6 +112,7 @@ public class ImportDataController {
 	
 	@RequestMapping("/gameFile")
 	@ResponseBody
+	@Permission
 	public String   importgame( 
 			HttpServletRequest request) throws Exception, BiffException{
 		ServletContext application = request.getSession().getServletContext();
@@ -231,6 +233,7 @@ public class ImportDataController {
 		
 	}
 	@RequestMapping(value="downgameFile")
+	@Permission
 	public void downgameFile(HttpServletResponse response,HttpServletRequest request){
 
 		String[] title = {"id","name","description","url","icon","img","hotflag","nowflag","godflag","recommend",
@@ -381,6 +384,7 @@ public class ImportDataController {
 	
 	@RequestMapping("/typeFile")
 	@ResponseBody
+	@Permission
 	private String typeFime( 
 			HttpServletRequest request) throws Exception, BiffException{
 		ServletContext application = request.getSession().getServletContext();
@@ -437,7 +441,7 @@ public class ImportDataController {
 		return "";
 		
 	}
-	
+	@Permission
 	@RequestMapping(value="downtypeFile")
 	public void downtypeFile(HttpServletResponse response,HttpServletRequest request){
 
@@ -562,6 +566,7 @@ public class ImportDataController {
 	
 	@RequestMapping("/tagFile")
 	@ResponseBody
+	@Permission
 	private String tagFile( 
 			HttpServletRequest request) throws Exception, BiffException{
 		ServletContext application = request.getSession().getServletContext();
@@ -611,6 +616,7 @@ public class ImportDataController {
 		
 	}
 	
+	@Permission
 	@RequestMapping(value="downtagFile")
 	public void downtagFile(HttpServletResponse response,HttpServletRequest request){
 
@@ -730,7 +736,7 @@ public class ImportDataController {
 	}	
 	
 	
-	
+	@Permission
 	@RequestMapping("/commentFile")
 	@ResponseBody
 	private String commentFile(
@@ -782,6 +788,7 @@ public class ImportDataController {
 		
 	}
 	
+	@Permission
 	@RequestMapping(value="downcommentFile")
 	public void downcommentFile(HttpServletResponse response,HttpServletRequest request)throws Exception{
 
@@ -899,7 +906,7 @@ public class ImportDataController {
 		
 	}	
 	
-	
+	@Permission
 	@RequestMapping("/slideFile")
 	@ResponseBody
 	private String slideFile(
@@ -976,6 +983,7 @@ public class ImportDataController {
 		
 	}
 	
+	@Permission
 	@RequestMapping(value="downslideFile")
 	public void downslideFile(HttpServletResponse response,HttpServletRequest request){
 
@@ -1106,7 +1114,7 @@ public class ImportDataController {
 	}	
 	
 	
-
+	@Permission
 	@RequestMapping("/showFile")
 	@ResponseBody
 	private String showFile( 
@@ -1173,6 +1181,7 @@ public class ImportDataController {
 		
 	}
 	
+	@Permission
 	@RequestMapping(value="downshowFile")
 	public void downshowFile(HttpServletResponse response,HttpServletRequest request){
 
@@ -1301,7 +1310,7 @@ public class ImportDataController {
 	
 	
 	
-	
+	@Permission
 	@RequestMapping("/picFile")
 	@ResponseBody
 	private String picFile(
@@ -1371,7 +1380,7 @@ public class ImportDataController {
 		return "";
 		
 	}
-	
+	@Permission
 	@RequestMapping(value="downpicFile")
 	public void downpicFile(HttpServletResponse response,HttpServletRequest request){
 
@@ -1501,7 +1510,7 @@ public class ImportDataController {
 	}	
 	
 	
-
+	@Permission
 	@RequestMapping("/gameTypeFile")
 	@ResponseBody
 	private String gameTypeFile( 
@@ -1555,7 +1564,7 @@ public class ImportDataController {
 		return "";
 		
 	}
-	
+	@Permission
 	@RequestMapping(value="downgameTypeFile")
 	public void downgameTypeFile(HttpServletResponse response,HttpServletRequest request){
 
@@ -1677,7 +1686,7 @@ public class ImportDataController {
 	}	
 	
 	
-
+	@Permission
 	@RequestMapping("/gameCommentFile")
 	@ResponseBody
 	private String gameCommentFile(
@@ -1738,6 +1747,7 @@ public class ImportDataController {
 		
 	}
 	
+	@Permission
 	@RequestMapping(value="downgameCommentFile")
 	public void downgameCommentFile(HttpServletResponse response,HttpServletRequest request){
 
@@ -1859,7 +1869,7 @@ public class ImportDataController {
 		
 	}	
 	
-	
+	@Permission
 	@RequestMapping("/typeTagFile")
 	@ResponseBody
 	private String typeTagFile(
@@ -1918,6 +1928,7 @@ cell = 					readsheet.getCell(2, i);
 		
 	}
 	
+	@Permission
 	@RequestMapping(value="downtypeTagFile")
 	public void downtypeTagFile(HttpServletResponse response,HttpServletRequest request){
 
@@ -2037,7 +2048,7 @@ cell = 					readsheet.getCell(2, i);
 		
 	}	
 
-
+	@Permission
 	@RequestMapping("/slideShowFile")
 	@ResponseBody
 	private String slideShowFile(
@@ -2094,7 +2105,7 @@ cell = 					readsheet.getCell(2, i);
 		return "";
 		
 	}
-	
+	@Permission
 	@RequestMapping(value="downslideShowFile")
 	public void downslideShowFile(HttpServletResponse response,HttpServletRequest request){
 

@@ -223,7 +223,6 @@ Ws.prototype.navpost = function(target,_blank){
 		this.getval(items[i]);
 	}
 	var values = m_data[sign];
-	console.log(values);
 	if(values==null){
 		values= new Array();
 	}

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mdream.gamemanage.common.inteceptor.Permission;
 import com.mdream.gamemanage.common.page.Constans;
 import com.mdream.gamemanage.common.page.PageNav;
 import com.mdream.gamemanage.common.page.PageNavResolver;
@@ -45,6 +46,7 @@ public class SlideShowController {
 	}
 	
 	@RequestMapping(value="create",method=RequestMethod.POST)
+	@Permission
 	public String create(SlideShow show,Model model){
 		
 		Map<String, String> reply =  new HashMap<String,String>();
@@ -65,6 +67,7 @@ public class SlideShowController {
 	
 	
 	@RequestMapping(value="view")
+	@Permission
 	public String view(@RequestParam(value="id") int id,Model model) {
 		model.addAttribute("show", slideShowServiceImp.getInfo(id));
 		return "account/client/slideshow/view";
@@ -72,12 +75,14 @@ public class SlideShowController {
 	}
 	
 	@RequestMapping(value="update",method=RequestMethod.GET)
+	@Permission
 	public String update(Model model,HttpServletRequest res,@RequestParam("id") int id){
 		model.addAttribute("show", slideShowServiceImp.get(id));
 		return "account/client/slideshow/update";
 	}
 	
 	@RequestMapping(value="update",method=RequestMethod.POST)
+	@Permission
 	@ResponseBody
 	public Map<String, String> update(Model model,SlideShow show){
 		Map<String, String> reply =  new HashMap<String,String>();
@@ -105,6 +110,7 @@ public class SlideShowController {
 	
 	
 	@RequestMapping(value="delete")
+	@Permission
 	@ResponseBody
 	public String delete(@RequestParam("id") int id){
 		slideShowServiceImp.delete(id);
@@ -113,6 +119,7 @@ public class SlideShowController {
 	}
 	
 	@RequestMapping(value="home")
+	@Permission
 	public String home(Model model)throws Exception{
 				
 		String url = ToolsFactory.urlTools.tr("/client/slideshow/list%s");				
@@ -130,6 +137,7 @@ public class SlideShowController {
 	}
 	
 	@RequestMapping(value="list",produces = "application/json")
+	@Permission
 	//@ResponseBody
 	public String list(@RequestBody List<ExpressionGroup>  list,HttpServletRequest request,Model model) throws Exception{
 		String pageIndexString =  request.getParameter("pageIndex");		

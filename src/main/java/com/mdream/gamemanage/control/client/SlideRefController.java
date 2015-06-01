@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mdream.gamemanage.common.inteceptor.Permission;
 import com.mdream.gamemanage.common.page.PageNavResolver;
 import com.mdream.gamemanage.common.tools.ToolsFactory;
 import com.mdream.gamemanage.model.client.Slide;
@@ -37,11 +38,13 @@ public class SlideRefController {
 	private SlideRefServiceImp slideRefServiceImp ;
 	
 	@RequestMapping(value="create",method=RequestMethod.GET)
+	@Permission
 	public String create(){
 		return "account/client/slide/ref/create";
 	}
 	
 	@RequestMapping(value="create",method=RequestMethod.POST)
+	@Permission
 	public String create(SlideShowTrans trans,Model model) throws Exception{
 		
 		slideRefServiceImp.insert(trans);
@@ -52,6 +55,7 @@ public class SlideRefController {
 	
 	
 	@RequestMapping(value="view")
+	@Permission
 	public String view(@RequestParam(value="id") int id) {
 			
 		return "account/client/slide/ref/view";
@@ -59,6 +63,7 @@ public class SlideRefController {
 	}
 	
 	@RequestMapping(value="update",method=RequestMethod.GET)
+	@Permission
 	public String update(){
 		
 		return "account/client/slide/update";
@@ -66,6 +71,7 @@ public class SlideRefController {
 	}
 	
 	@RequestMapping(value="get",method=RequestMethod.POST)
+	@Permission
 	@ResponseBody
 	public String get(@RequestParam(value="slideId") int slideId,@RequestParam(value="showId") int showId){
 		
@@ -74,6 +80,7 @@ public class SlideRefController {
 	}
 	
 	@RequestMapping(value="update",method=RequestMethod.POST)
+	@Permission
 	public String update(SlideShowTrans trans,Model model) throws Exception{
 		
 		slideRefServiceImp.merge(trans);
@@ -83,7 +90,7 @@ public class SlideRefController {
 	}
 	
 	@RequestMapping(value="delete")
-
+	@Permission
 	public String delete(SlideShowTrans trans,Model model) throws Exception{
 		
 		slideRefServiceImp.delete(trans);

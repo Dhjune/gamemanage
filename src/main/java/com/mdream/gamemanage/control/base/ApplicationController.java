@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mdream.gamemanage.common.inteceptor.Permission;
 import com.mdream.gamemanage.common.page.Constans;
 import com.mdream.gamemanage.common.page.PageNav;
 import com.mdream.gamemanage.common.page.PageNavResolver;
@@ -36,11 +37,13 @@ public class ApplicationController {
 	private PageNavResolver pageNavResolver;
 
 	@RequestMapping(value="create",method=RequestMethod.GET)
+	@Permission
 	public String create(){
 		return "account/app/create";
 	}
 	
 	@RequestMapping(value="create",method=RequestMethod.POST)
+	@Permission
 	public String create(Application app,Model model){
 		Map<String, String> reply =  new HashMap<String,String>();
 		try{			
@@ -57,6 +60,7 @@ public class ApplicationController {
 	
 	
 	@RequestMapping(value="view")
+	@Permission
 	public String view(@RequestParam(value="id") int id) {
 			
 		return "account/app/view";
@@ -64,12 +68,14 @@ public class ApplicationController {
 	}
 	
 	@RequestMapping(value="update",method=RequestMethod.GET)
+	@Permission
 	public String update(Model model,HttpServletRequest res,@RequestParam("id") int id){
 		model.addAttribute("app", applicationServiceImp.get(id));
 		return "account/app/update";
 	}
 	
 	@RequestMapping(value="update",method=RequestMethod.POST)
+	@Permission
 	@ResponseBody
 	public Map<String, String> update(Application app,Model model){
 		Map<String, String> reply =  new HashMap<String,String>();
@@ -96,6 +102,7 @@ public class ApplicationController {
 	
 	@RequestMapping(value="delete")
 	@ResponseBody
+	@Permission
 	public String delete(HttpServletRequest request) throws NumberFormatException, Exception{
 		String id =  request.getParameter("id");
 		if(id!=null && !id.equals("")){
@@ -123,6 +130,7 @@ public class ApplicationController {
 	}
 	
 	@RequestMapping(value="list",produces = "application/json")
+	@Permission
 	//@ResponseBody
 	public String list(@RequestBody List<ExpressionGroup>  list,HttpServletRequest request,Model model) throws Exception{
 		String pageIndexString =  request.getParameter("pageIndex");		

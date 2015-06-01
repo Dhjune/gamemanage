@@ -52,7 +52,7 @@
     <div class="col-md-4"></div>
   	<div class="col-md-4">
         <ul class="nav nav-tabs">
-		<input type="button" value="Ajax跨域测试" onclick="get();"/>
+		<!--<input type="button" value="Ajax跨域测试" onclick="get();"/>-->
           <li role="presentation"><a href="#"></a></li>
           <li role="presentation"><a href="#">后台登录</a></li>
           <li role="presentation"><a href="#"></a></li>

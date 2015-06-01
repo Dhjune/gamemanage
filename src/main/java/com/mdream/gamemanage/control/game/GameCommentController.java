@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mdream.gamemanage.common.inteceptor.Permission;
 import com.mdream.gamemanage.common.page.Constans;
 import com.mdream.gamemanage.common.page.PageNav;
 import com.mdream.gamemanage.common.page.PageNavResolver;
@@ -39,11 +40,13 @@ public class GameCommentController {
 	private GameCommentServiceImp gameCommentServiceImp;
 	
 	@RequestMapping(value="create",method=RequestMethod.GET)
+	@Permission
 	public String create(){
 		return "account/game/comment/create";
 	}
 	
 	@RequestMapping(value="create",method=RequestMethod.POST)
+	@Permission
 	public String create(GameComment comment,Model model){
 		Map<String,String> reply =  new HashMap<String,String>();
 		try{
@@ -65,6 +68,7 @@ public class GameCommentController {
 	
 	
 	@RequestMapping(value="view")
+	@Permission
 	public String view(@RequestParam(value="id") int id) {
 			
 		return "account/game/comment/view";
@@ -72,6 +76,7 @@ public class GameCommentController {
 	}
 	
 	@RequestMapping(value="update",method=RequestMethod.GET)
+	@Permission
 	public String update(@RequestParam(value="id") int id,Model model)throws Exception{
 		
 		model.addAttribute("comment", gameCommentServiceImp.get(id));
@@ -80,6 +85,7 @@ public class GameCommentController {
 	}
 	
 	@RequestMapping(value="update",method=RequestMethod.POST)
+	@Permission
 	@ResponseBody
 	public Map<String,String> update(GameComment comment){
 		Map<String,String> replay =  new HashMap<String,String>();
@@ -113,6 +119,7 @@ public class GameCommentController {
 	}
 	
 	@RequestMapping(value="delete")
+	@Permission
 	@ResponseBody
 	public String delete(@RequestParam(value="id" )int id) throws Exception{
 		gameCommentServiceImp.delete(id);
@@ -121,6 +128,7 @@ public class GameCommentController {
 	}
 	
 	@RequestMapping(value="home")
+	@Permission
 	public String home(Model model)throws Exception{
 				
 		String url = ToolsFactory.urlTools.tr("/game/comment/list%s");				
@@ -138,6 +146,7 @@ public class GameCommentController {
 	}
 	
 	@RequestMapping(value="list",produces = "application/json")
+	@Permission
 	//@ResponseBody
 	public String gameList(@RequestBody List<ExpressionGroup>  list,HttpServletRequest request,Model model) throws Exception{
 		String pageIndexString =  request.getParameter("pageIndex");		
@@ -169,6 +178,7 @@ public class GameCommentController {
 	}
 	
 	@RequestMapping(value="jlist",produces = "application/json")
+	@Permission
 	@ResponseBody
 	public String getJsonList() throws Exception{
 		

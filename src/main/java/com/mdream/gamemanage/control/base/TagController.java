@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mdream.gamemanage.common.inteceptor.Permission;
 import com.mdream.gamemanage.common.page.Constans;
 import com.mdream.gamemanage.common.page.PageNav;
 import com.mdream.gamemanage.common.page.PageNavResolver;
@@ -39,11 +40,13 @@ public class TagController {
 	private PageNavResolver pageNavResolver;
 	
 	@RequestMapping(value="create",method=RequestMethod.GET)
+	@Permission
 	public String create(){
 		return "account/tag/create";
 	}
 	
 	@RequestMapping(value="create",method=RequestMethod.POST)
+	@Permission
 	public String create(Tag tag,Model model){
 		
 		Map<String, String> reply =  new HashMap<String,String>();
@@ -62,6 +65,7 @@ public class TagController {
 	
 	
 	@RequestMapping(value="view")
+	@Permission
 	public String view(@RequestParam(value="id") int id) {
 			
 		return "account/tag/view";
@@ -69,12 +73,14 @@ public class TagController {
 	}
 	
 	@RequestMapping(value="update",method=RequestMethod.GET)
+	@Permission
 	public String update(Model model,HttpServletRequest res,@RequestParam("id") int id){
 		model.addAttribute("tag", tagServiceImp.get(id));
 		return "account/tag/update";
 	}
 	
 	@RequestMapping(value="update",method=RequestMethod.POST)
+	@Permission
 	public String update(Model model,Tag tag){
 		Map<String, String> reply =  new HashMap<String,String>();
 		Tag oldTag =  tagServiceImp.get(tag.getId());
@@ -101,6 +107,7 @@ public class TagController {
 	
 	@RequestMapping(value="delete")
 	@ResponseBody
+	@Permission
 	public String delete(@RequestParam("id") int id)throws Exception{
 		
 		tagServiceImp.delete(id);
@@ -111,6 +118,7 @@ public class TagController {
 	
 
 	@RequestMapping(value="home")
+	@Permission
 	public String home(Model model)throws Exception{
 				
 		String url = ToolsFactory.urlTools.tr("/tag/list%s");				
@@ -129,6 +137,7 @@ public class TagController {
 	
 	@RequestMapping(value="list",produces = "application/json")
 	//@ResponseBody
+	@Permission
 	public String list(@RequestBody List<ExpressionGroup>  list,HttpServletRequest request,Model model) throws Exception{
 		String pageIndexString =  request.getParameter("pageIndex");		
 		int pageIndex = 1;		
@@ -158,6 +167,7 @@ public class TagController {
 	
 	@RequestMapping(value="jlist",produces = "application/json")
 	@ResponseBody
+	@Permission
 	public String getJsonList(){
 		
 		return ToolsFactory.gsonTools.getGson().toJson(tagServiceImp.list());

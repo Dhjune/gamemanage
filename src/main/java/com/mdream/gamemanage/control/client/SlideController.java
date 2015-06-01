@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mdream.gamemanage.common.inteceptor.Permission;
 import com.mdream.gamemanage.common.page.Constans;
 import com.mdream.gamemanage.common.page.PageNav;
 import com.mdream.gamemanage.common.page.PageNavResolver;
@@ -37,11 +38,13 @@ public class SlideController {
 	private PageNavResolver pageNavResolver;
 	
 	@RequestMapping(value="create",method=RequestMethod.GET)
+	@Permission
 	public String create(){
 		return "account/client/slide/create";
 	}
 	
 	@RequestMapping(value="create",method=RequestMethod.POST)
+	@Permission
 	public String create(Slide slide,Model model){
 				
 		Map<String, String> reply =  new HashMap<String,String>();
@@ -60,6 +63,7 @@ public class SlideController {
 	
 	
 	@RequestMapping(value="view")
+	@Permission
 	public String view(@RequestParam(value="id") int id) {
 			
 		return "account/client/slide/view";
@@ -67,12 +71,14 @@ public class SlideController {
 	}
 	
 	@RequestMapping(value="update",method=RequestMethod.GET)
+	@Permission
 	public String update(Model model,HttpServletRequest res,@RequestParam("id") int id){
 		model.addAttribute("slide", slideServiceImp.get(id));
 		return "account/client/slide/update";
 	}
 	
 	@RequestMapping(value="update",method=RequestMethod.POST)
+	@Permission
 	@ResponseBody
 	public Map<String, String>  update(Model model,Slide slide){
 		Slide oldSlide =  slideServiceImp.get(slide.getId());
@@ -105,6 +111,7 @@ public class SlideController {
 	}
 	
 	@RequestMapping(value="delete")
+	@Permission
 	@ResponseBody
 	public String delete(@RequestParam("id") int id) throws Exception {
 		slideServiceImp.delete(id);
@@ -113,6 +120,7 @@ public class SlideController {
 	}
 	
 	@RequestMapping(value="home")
+	@Permission
 	public String home(Model model)throws Exception{
 				
 		String url = ToolsFactory.urlTools.tr("/client/slide/list%s");				
@@ -130,6 +138,7 @@ public class SlideController {
 	}
 	
 	@RequestMapping(value="list",produces = "application/json")
+	@Permission
 	//@ResponseBody
 	public String list(@RequestBody List<ExpressionGroup>  list,HttpServletRequest request,Model model) throws Exception{
 		String pageIndexString =  request.getParameter("pageIndex");		
@@ -161,6 +170,7 @@ public class SlideController {
 	
 	@RequestMapping(value="jlist",produces = "application/json")
 	@ResponseBody
+	@Permission
 	public String getJsonList(@RequestParam(value="type") int type) throws Exception{
 		
 		return ToolsFactory.gsonTools.getGson().toJson(slideServiceImp.list(type));

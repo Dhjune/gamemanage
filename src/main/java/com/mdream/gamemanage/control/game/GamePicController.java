@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mdream.gamemanage.common.inteceptor.Permission;
 import com.mdream.gamemanage.model.game.GamePic;
 import com.mdream.gamemanage.model.resulttransformer.GamePicTrans;
 import com.mdream.gamemanage.service.game.GamePicServiceImp;
@@ -24,6 +25,7 @@ public class GamePicController {
 	private GameServiceImp gameServiceImp ;
 	
 	@RequestMapping(value="create",method=RequestMethod.GET)
+	@Permission
 	public String create(){
 		
 		return "account/game/pic/create";
@@ -31,6 +33,7 @@ public class GamePicController {
 	}
 	
 	@RequestMapping(value="create",method=RequestMethod.POST)
+	@Permission
 	public String create(GamePic pic,@RequestParam(value="gameId") int gameId,Model model){
 		gamePicServiceImp.insert(pic, gameId);
 		
@@ -40,6 +43,7 @@ public class GamePicController {
 	}
 	
 	@RequestMapping(value="get",method=RequestMethod.POST)
+	@Permission
 	@ResponseBody
 	public GamePicTrans get(GamePicTrans trans){
 										
@@ -47,6 +51,7 @@ public class GamePicController {
 	}
 	
 	@RequestMapping(value="view")
+	@Permission
 	public String view(@RequestParam(value="id") int id) {
 			
 		return "account/game/pic/view";
@@ -54,6 +59,7 @@ public class GamePicController {
 	}
 	
 	@RequestMapping(value="update",method=RequestMethod.GET)
+	@Permission
 	public String update(){
 		return "account/game/pic/update";
 	}

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mdream.gamemanage.common.inteceptor.Permission;
 import com.mdream.gamemanage.common.page.Constans;
 import com.mdream.gamemanage.common.page.PageNav;
 import com.mdream.gamemanage.common.page.PageNavResolver;
@@ -39,6 +40,7 @@ public class GameController {
 	private PageNavResolver pageNavResolver;
 	
 	@RequestMapping(value="create",method=RequestMethod.GET)
+	@Permission
 	public String createGame(){
 		
 		return "account/game/create";
@@ -46,6 +48,7 @@ public class GameController {
 	}
 	
 	@RequestMapping(value="create",method=RequestMethod.POST)
+	@Permission
 	public String createGame(Game game,Model model){
 				
 		Map<String, String> reply =  new HashMap<String,String>();
@@ -63,12 +66,14 @@ public class GameController {
 	}
 	
 	@RequestMapping(value="update",method=RequestMethod.GET)
+	@Permission
 	public String update(Model model,HttpServletRequest res,@RequestParam("id") int id){
 		model.addAttribute("game", gameServiceImp.get(id));
 		return "account/game/update";
 	}
 	
 	@RequestMapping(value="update",method=RequestMethod.POST)
+	@Permission
 	@ResponseBody
 	public Map<String, String> update(Game game,Model model){
 		Map<String, String> reply =  new HashMap<String,String>();
@@ -141,6 +146,7 @@ public class GameController {
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="home")
+	@Permission
 	public String home(Model model)throws Exception{
 				
 		String url = ToolsFactory.urlTools.tr("/game/list%s");				
@@ -158,6 +164,7 @@ public class GameController {
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="list",produces = "application/json")
+	@Permission
 	//@ResponseBody
 	public String gameList(@RequestBody List<ExpressionGroup>  list,HttpServletRequest request,Model model) throws Exception{
 		String pageIndexString =  request.getParameter("pageIndex");		
@@ -194,6 +201,7 @@ public class GameController {
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="search",produces = "application/json")
+	@Permission
 	//@ResponseBody
 	public String gameSearch(@RequestBody List<ExpressionGroup>  list,HttpServletRequest request,Model model) throws Exception{
 		String pageIndexString =  request.getParameter("pageIndex");		

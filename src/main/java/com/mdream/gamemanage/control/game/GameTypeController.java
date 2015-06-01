@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mdream.gamemanage.common.inteceptor.Permission;
 import com.mdream.gamemanage.common.page.Constans;
 import com.mdream.gamemanage.common.page.PageNav;
 import com.mdream.gamemanage.common.page.PageNavResolver;
@@ -38,11 +39,13 @@ public class GameTypeController {
 	@Autowired
 	private PageNavResolver pageNavResolver;
 	
+	@Permission
 	@RequestMapping(value="create",method=RequestMethod.GET)
 	public String create(){
 		return "account/game/type/create";
 	}
 	
+	@Permission
 	@RequestMapping(value="create",method=RequestMethod.POST)
 	public String create(GameType type,Model model){
 		Map<String, String> reply =  new HashMap<String,String>();
@@ -77,6 +80,7 @@ public class GameTypeController {
 	
 	@RequestMapping(value="update",method=RequestMethod.POST)
 	@ResponseBody
+	@Permission
 	public Map<String, String> update(GameType type,Model model){
 		Map<String, String> reply =  new HashMap<String,String>();
 		GameType oldType  =  gameTypeServiceImp.get(type.getId());
@@ -103,6 +107,7 @@ public class GameTypeController {
 	
 	@RequestMapping(value="delete")
 	@ResponseBody
+	@Permission
 	public String delete(@RequestParam("id") int id) throws Exception{
 		gameTypeServiceImp.delete(id);
 		return "account/game/type/update";
@@ -111,6 +116,7 @@ public class GameTypeController {
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="home")
+	@Permission
 	public String home(Model model)throws Exception{
 				
 		String url = ToolsFactory.urlTools.tr("/tag/list%s");				
@@ -129,6 +135,7 @@ public class GameTypeController {
 	
 	@RequestMapping(value="jlist",produces = "application/json")
 	@ResponseBody
+	@Permission
 	public String getJsonList(){
 		
 		return ToolsFactory.gsonTools.getGson().toJson(gameTypeServiceImp.list());
@@ -136,6 +143,7 @@ public class GameTypeController {
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="list",produces = "application/json")
+	@Permission
 	//@ResponseBody
 	public String gameList(@RequestBody List<ExpressionGroup>  list,HttpServletRequest request,Model model) throws Exception{
 		String pageIndexString =  request.getParameter("pageIndex");		
