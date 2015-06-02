@@ -33,6 +33,7 @@
         <property name="maxUploadSize" value="2000000"/>
     </bean>
     -->
+    <!-- 返回String含有中文时 -->
     <!--StringHttpMessageConverter 默认字符是ISO 8859-1  -->
     <bean id="utf8Charset" class="java.nio.charset.Charset"
           factory-method="forName">
