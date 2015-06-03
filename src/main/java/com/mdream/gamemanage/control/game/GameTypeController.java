@@ -119,7 +119,7 @@ public class GameTypeController {
 	@Permission
 	public String home(Model model)throws Exception{
 				
-		String url = ToolsFactory.urlTools.tr("/tag/list%s");				
+		String url = ToolsFactory.urlTools.tr("/game/type/list%s");				
 		PageNav<GameType> context =null;
 		GameType type =  new GameType();
 		int pageSize =  Constans.ACCOUNT_DEFAULT_PAGE_SIZE;
@@ -163,7 +163,7 @@ public class GameTypeController {
 			
 		}
 		
-		String url = ToolsFactory.urlTools.tr("/game/list%s");				
+		String url = ToolsFactory.urlTools.tr("/game/type/list%s");				
 		PageNav<GameType> context =null;
 		GameType type =  new GameType();
 		int pageSize =  Constans.ACCOUNT_DEFAULT_PAGE_SIZE;
