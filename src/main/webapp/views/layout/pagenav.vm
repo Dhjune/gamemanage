@@ -5,7 +5,7 @@
             <li><a>共$!{context.total}条记录</a></li>
 			#if( $!{context.prev}> 0)           
                 <li >
-                    <a onclick="$.navpost(this,'second_view')" sign="$!{sign}" asynchronize="true" href="#" link="$!{context.prevUrl}">上页</a>
+                    <a onclick="ws.navpost(this,'second_view')" sign="$!{sign}" asynchronize="true" href="#" link="$!{context.prevUrl}">上页</a>
                 </li>
             #else
                 <li class="disabled">

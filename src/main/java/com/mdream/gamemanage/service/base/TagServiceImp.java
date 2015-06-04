@@ -1,6 +1,7 @@
 package com.mdream.gamemanage.service.base;
 
 import java.text.ParseException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,11 +77,13 @@ public class TagServiceImp {
 	}
 
 	public void save(Tag tag) throws Exception{
+		tag.setCreateTime(new Date());
 		hibernateResolversService.save(tag);
 		
 	}
 
 	public void update(Tag tag) throws Exception{
+		tag.setModifyTime(new Date());
 		hibernateResolversService.update(tag);
 		
 	}

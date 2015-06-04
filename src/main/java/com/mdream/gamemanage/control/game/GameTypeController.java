@@ -94,7 +94,7 @@ public class GameTypeController {
 			
 		}else{
 			reply.put("rcode", "0");
-			reply.put("message"," 数据不存在");
+			reply.put("message"," 数据不存在!!");
 		}
 		model.addAttribute("rdata", reply);
 		return reply;	
@@ -113,7 +113,7 @@ public class GameTypeController {
 	@RequestMapping(value="home")
 	public String home(Model model)throws Exception{
 				
-		String url = ToolsFactory.urlTools.tr("/tag/list%s");				
+		String url = ToolsFactory.urlTools.tr("/game/type/list%s");				
 		PageNav<GameType> context =null;
 		GameType type =  new GameType();
 		int pageSize =  Constans.ACCOUNT_DEFAULT_PAGE_SIZE;
@@ -155,20 +155,18 @@ public class GameTypeController {
 			
 		}
 		
-		String url = ToolsFactory.urlTools.tr("/game/list%s");				
+		String url = ToolsFactory.urlTools.tr("/game/type/list%s");				
 		PageNav<GameType> context =null;
 		GameType type =  new GameType();
 		int pageSize =  Constans.ACCOUNT_DEFAULT_PAGE_SIZE;
-		Map<String,Object> map = gameTypeServiceImp.list(null, type, 1, pageSize);
+		Map<String,Object> map = gameTypeServiceImp.list(null, type, pageIndex, pageSize);
 		List<GameType> result =  (List<GameType>) map.get("result");
 		long total =  (Long) map.get("total");
-		context =  pageNavResolver.initPagenav(result, type, total, pageSize, 1, url);		
-		
+		context =  pageNavResolver.initPagenav(result, type, total, pageSize, pageIndex, url);				
 		model.addAttribute("context", context);	
 		model.addAttribute("sign", "types");
 		return "account/game/type/list";	
 		
 	}
-	
 	
 }
