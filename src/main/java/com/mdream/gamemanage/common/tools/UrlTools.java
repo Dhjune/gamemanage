@@ -9,6 +9,10 @@ public class UrlTools {
 	
 	private  final String  url = "http://www.happyplay.net/gamemanage";
 	
+//	private  final String  sta = "http://www.kjava.com/gamemanage/static" ;
+	
+//	private  final String  url = "http://www.kjava.com/gamemanage";
+	
 //	private  final String  sta = "http://121.199.38.56:8899/gamemanage/static" ;
 	
 //	private  final String  url = "http://121.199.38.56:8899/gamemanage";
