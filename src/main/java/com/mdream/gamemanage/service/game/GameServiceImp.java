@@ -148,6 +148,13 @@ public class GameServiceImp {
 		gameDaoImp.recover(id);
 		
 	}
+
+
+	public boolean exist(Game game) {
+		
+		return gameDaoImp.exist(game);
+		
+	}
 	
 	
 

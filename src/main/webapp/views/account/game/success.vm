@@ -20,7 +20,7 @@
 					<strong>$!{rdata.message}</strong></div>	
 		#end
 		
-    <a href="#" onclick="javascript:ws.get(this,'')" link="$!{urlTools.tr('/game/comment/create')}" >
+    <a href="#" onclick="javascript:ws.get(this,'')" link="$!{urlTools.tr('/game/create')}" >
     	 继续添加
     </a>
 	

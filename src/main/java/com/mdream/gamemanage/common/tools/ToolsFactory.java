@@ -5,7 +5,7 @@ import org.springframework.context.ApplicationContext;
 import com.mdream.gamemanage.common.utils.ProxyThreadPools;
 
 
-public  class ToolsFactory {
+public class ToolsFactory {
 	
 	public static BeanTools beanTools = null;
 	

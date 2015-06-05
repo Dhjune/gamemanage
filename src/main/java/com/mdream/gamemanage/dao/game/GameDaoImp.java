@@ -1,5 +1,7 @@
 package com.mdream.gamemanage.dao.game;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -38,6 +40,20 @@ public class GameDaoImp {
 		Query query =  session.createSQLQuery("update game set status=1 where id=?");
 		query.setParameter(0, id);
 		query.executeUpdate();
+	}
+
+	public boolean exist(Game game) {
+		
+		Session session  =  sessionFactory.getCurrentSession();
+		Query query =  session.createSQLQuery("SELECT count(*) count FROM game WHERE name = ?");
+		query.setParameter(0, game.getName());
+		List list = query.list();
+		if(list!=null && list.size()>0){
+			return true;
+		}
+		return false;
+		
+		
 	}
 	
 	

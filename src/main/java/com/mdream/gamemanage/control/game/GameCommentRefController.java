@@ -62,6 +62,7 @@ public class GameCommentRefController {
 	}
 	
 	@RequestMapping(value="update",method=RequestMethod.POST)
+	@Permission
 	public String update(GameCommentTrans trans,Model model){
 		gameCommentRefServiceImp.update(trans);
 		model.addAttribute("game", gameServiceImp.getGameInfo(trans.getGameId()));
