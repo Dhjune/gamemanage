@@ -157,17 +157,11 @@ public class HibernateResolvers {
 			            break;
 			        case LIKE:	
 			        	
-			        	for(Expression e : expressions){			        		
-			        		Order(criteria, e.operate,eg.getAlias(), e.name);	
-			        	}
+			        
 			        	
 			            break;
 			        case ILIKE:	
-			        	
-			        	for(Expression e : expressions){			        		
-			        		Order(criteria, e.operate,eg.getAlias(), e.name);	
-			        	}
-			        	
+			        				        
 			            break;
 			            
 			        default:
@@ -350,9 +344,5 @@ public class HibernateResolvers {
 		return (T) value;
 	}
 
-    
-    
-	
-	
 	
 }

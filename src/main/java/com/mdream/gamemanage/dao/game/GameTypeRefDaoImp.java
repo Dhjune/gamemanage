@@ -73,6 +73,9 @@ public class GameTypeRefDaoImp {
 		
 	}
 	
+	
+	
+	
 	public void deleteBygameId(int gameId){
 		
 		Session session  = sessionFactory.getCurrentSession();
@@ -91,5 +94,26 @@ public class GameTypeRefDaoImp {
 		
 	}
 	
+	public void fakedelete(int gameId, int gameTypeId){
+		Session session  = sessionFactory.getCurrentSession();
+		Query query =  session.createSQLQuery("update game_type_ref set status=0  where  gameId=? and gameTypeId =?");
+		query.setParameter(0, gameId);
+		query.setParameter(1, gameTypeId);
+		query.executeUpdate();
+	}
+	
+	public void fakeDeleteBygameId(int gameId){
+		Session session  = sessionFactory.getCurrentSession();
+		Query query =  session.createSQLQuery("update game_type_ref set status=0  where  gameId=? and status = 1");
+		query.setParameter(0, gameId);
+		query.executeUpdate();
+	}
+	
+	public void fakeDeleteByTypeId(int typeId){
+		Session session  = sessionFactory.getCurrentSession();
+		Query query =  session.createSQLQuery("update game_type_ref set status=0  where  gameTypeId=? and status = 1");
+		query.setParameter(0, typeId);
+		query.executeUpdate();
+	}
 	
 }

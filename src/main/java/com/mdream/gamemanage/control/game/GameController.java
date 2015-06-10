@@ -236,14 +236,13 @@ public class GameController {
 		String url = ToolsFactory.urlTools.tr("/game/list%s");				
 		PageNav<Game> context =null;
 		Game game =  new Game();
-		int pageSize =  Constans.ACCOUNT_DEFAULT_PAGE_SIZE;
-		Map<String,Object> map = gameServiceImp.getGameList(list, game, pageIndex, pageSize);
-		List<Game> result =  (List<Game>) map.get("result");
-		long total =  (Long) map.get("total");
+		int pageSize =  Constans.ACCOUNT_DEFAULT_PAGE_SIZE;  
+		Map<String,Object> map = gameServiceImp.getGameList(list, game, pageIndex, pageSize);   
+		List<Game> result =  (List<Game>) map.get("result");   
+		long total =  (Long) map.get("total");   
 		context =  pageNavResolver.initPagenav(result, game, total, pageSize, pageIndex, url);	
-		System.out.println(total);
-		model.addAttribute("context", context);	
-		model.addAttribute("sign", "games");
+		model.addAttribute("context", context);	    
+		model.addAttribute("sign", "games");   
 		
 		return "account/game/search";	
 		

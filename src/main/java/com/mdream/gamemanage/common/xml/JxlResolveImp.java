@@ -84,10 +84,10 @@ public class JxlResolveImp implements JxlResolve{
 	public void reading(String[][] titles,String filepath, List list,Class clazz,HttpServletResponse response) throws Exception{
 			
 			
-			File file = new File(filepath); //封装成File对象
+			File file = new File(filepath); 
 			
-			  WritableWorkbook wwb = null;   
-	          // 新建立一个jxl文件,即在d盘下生成testJXL.xls   
+			WritableWorkbook wwb = null;   
+			
 	        OutputStream os;
 			try {
 				os = new FileOutputStream(file);
