@@ -12,6 +12,7 @@ public class ExpressionGroup {
 	
 	//属性包含者别名 --与POJO对象中属性名应对
 	private String upalias;
+	
 	//属性别名--与POJO对象中属性名应对
 	private  String  alias;
 

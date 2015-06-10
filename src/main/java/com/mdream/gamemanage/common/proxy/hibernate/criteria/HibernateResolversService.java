@@ -202,7 +202,6 @@ public class HibernateResolversService extends ResolverServiceAbstract{
 		        });	
 				
 			}
-			
 			if(list.get(0).getGroup()>1&&list.get(0).getGroup()<3){
 		//		System.out.println("错误在此处  1111");
 				criteria = hibernateResolvers.createCriteria(target, list.get(0).getUpalias());

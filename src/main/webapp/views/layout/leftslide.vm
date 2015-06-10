@@ -40,7 +40,7 @@
                 <ul name="left_slide" id="configSetting" class="nav nav-list secondmenu collapse ">
                     <li ><a asynchronize="true" onclick="javascript:ws.post(this,'',true)" href="#" link="$!{urlTools.tr('/client/slide/home')}"><i class="glyphicon glyphicon-globe"></i>&nbsp;轮播子项</a></li>
                     <li><a asynchronize="true" onclick="javascript:ws.post(this,'',true)" href="#" link="$!{urlTools.tr('/client/slideshow/home')}"><i class="glyphicon glyphicon-star-empty"></i>&nbsp;轮播组</a></li>
-                    <li><a asynchronize="true" href="#" link="./weixin/list"><i class="glyphicon glyphicon-star"></i>&nbsp;退订用户配置</a></li>
+                    <li><a asynchronize="true" onclick="javascript:ws.post(this,'',true)" href="#" link="$!{urlTools.tr('/client/pushgame/home')}"><i class="glyphicon glyphicon-star"></i>主推游戏</a></li>
                     <li><a asynchronize="true" href="#" link="./weixin/list"><i class="glyphicon glyphicon-text-width"></i>&nbsp;试用用户配置</a></li>
                     <li><a asynchronize="true" href="#" link="./weixin/list"><i class="glyphicon glyphicon-ok-circle"></i>&nbsp;开通用户配置</a></li>
                 </ul>

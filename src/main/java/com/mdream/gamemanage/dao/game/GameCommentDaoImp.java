@@ -17,8 +17,7 @@ public class GameCommentDaoImp {
 		Query query =  session.createSQLQuery("update game_comment set status=0 where id=?");
 		query.setParameter(0, id);
 		query.executeUpdate();
-		
-		
+				
 	}
 
 }

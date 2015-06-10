@@ -1,0 +1,74 @@
+
+
+<SCRIPT >
+$('#pushgameCreate').submit(function() {
+    jQuery.ajax({
+    url:"$!{urlTools.tr('/client/pushgame/create')}",
+    data:$('#pushgameCreate').serialize(),
+    type:"POST",  
+    success:function(data)
+    {
+        　		$("#container_iframe").html(data); 
+    }
+    });
+    return false;
+});
+
+
+</SCRIPT>
+
+
+
+<div class="panel panel-default">
+<div class="panel-heading"><a href="#" onclick="ws.callback()" type="button" class=" pull-right">
+	<span class="glyphicon glyphicon-fast-backward"  aria-hidden="true"></span> 返回列表
+</a>添加主推游戏</div>
+	
+  <div class="panel-body">
+	
+        <form class="form-horizontal" id="pushgameCreate" action="" >
+			
+			
+		<div class="form-group">
+            <label for="inputgameName" class="col-sm-2 control-label">游戏ID</label>
+            <div class="col-sm-4">
+              <input type="text"  class="form-control" name="gameId" id="inputgameName" placeholder="">
+            </div>
+          </div>	 
+			 
+         <div class="form-group">
+            <label for="inputgameName" class="col-sm-2 control-label">游戏名称</label>
+            <div class="col-sm-4">
+              <input type="text"  class="form-control" name="gameName" id="inputgameName" placeholder="">
+            </div>
+          </div>
+			
+		  <div class="form-group">				
+              <label for="forlinkEmail" class="col-sm-2 control-label">主推类型<span id="forlinkEmail" style="color:red"> </span></label>		 
+			  <label class="radio-inline">
+                <input type="radio" name="type" id="type1" value="1" >
+					首页
+              </label >
+              <label class="radio-inline">
+                <input type="radio" name="type" id="type2" value="2" >
+					最热
+              </label>   
+			  
+			   <label class="radio-inline">
+                <input type="radio" name="type" id="type2" value="3" >
+					最新
+              </label> 
+             </div>
+		
+		 <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit"  class="btn btn-success">保存</button>
+            </div>
+          </div>
+		  
+        </form>
+  </div>
+  
+  <div class="panel-footer"></div>
+</div>
+
