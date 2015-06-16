@@ -34,7 +34,6 @@ public class AdminDaoImp implements BaseDaoItl<Admin>{
 		return admin;		
 	}
 
-	@Override
 	public void saveOrUpdate(Admin admin) {
 		// TODO Auto-generated method stub
 		

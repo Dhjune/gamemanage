@@ -7,15 +7,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class DefaultHibernateDecorator {
 	
-	public void addDesc(Criteria criteria,String desc){
+	public Criteria addDesc(Criteria criteria,String desc){
 		
-		criteria.addOrder(Order.desc(desc));
+		return criteria.addOrder(Order.desc(desc));
 		
 	}
 	
-	public void addAsc(Criteria criteria,String asc){
+	public Criteria addAsc(Criteria criteria,String asc){
 		
-		criteria.addOrder(Order.asc(asc));
+		return criteria.addOrder(Order.asc(asc));
 		
 	}
 	

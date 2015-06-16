@@ -55,6 +55,13 @@ public class GameDaoImp {
 		
 		
 	}
+
+	public void fakeDelete(int id) {
+		Session session  =  sessionFactory.getCurrentSession();
+		Query query =  session.createSQLQuery("update game set status=0 where id=?");
+		query.setParameter(0, id);
+		query.executeUpdate();
+	}
 	
 	
 	

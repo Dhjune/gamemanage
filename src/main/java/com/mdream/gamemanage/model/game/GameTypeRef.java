@@ -45,6 +45,9 @@ public class GameTypeRef implements Serializable{
 	public Date getModifyTime() {
 		return modifyTime;
 	}
+	
+	@Column(name="sort")
+	private Integer sort ;
 
 	public void setModifyTime(Date modifyTime) {
 		this.modifyTime = modifyTime;
@@ -72,6 +75,14 @@ public class GameTypeRef implements Serializable{
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public Integer getSort() {
+		return sort;
+	}
+
+	public void setSort(Integer sort) {
+		this.sort = sort;
 	}
 	
 	

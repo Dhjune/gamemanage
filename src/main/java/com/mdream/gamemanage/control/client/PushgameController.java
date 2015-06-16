@@ -156,8 +156,7 @@ public class PushgameController {
 	@ResponseBody
 	public String batchSaveOrUpdate(HttpServletRequest request) throws Exception{
 		String file = syncHttpWork.savefile(request, com.mdream.gamemanage.common.tools.Constans.FILE_BASE_SAVE_PATH);
-		jxlResolveImp.filling(file, 2, PushGame.class, pushGameServiceImp);	
-		System.out.println("954321");
+		jxlResolveImp.filling(file, 2, PushGame.class, pushGameServiceImp);		
 		return "1234567";
 	}
 	

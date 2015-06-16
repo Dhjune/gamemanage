@@ -51,6 +51,7 @@ public class ApplicationServiceImp {
 			//分页结果集
 		//	setResultTransformer(Transformers.aliasToBean(StatCountbook.class));
 			Criteria criteria =  hibernateResolversService.getCriteria(list, target);	
+			criteria.setCacheable(true);
 			criteria.add( Restrictions.eq(criteria.getAlias()+".status",1));
 			criteria.setFirstResult((pageIndex-1)*pageSize);
 			criteria.setMaxResults(pageSize);

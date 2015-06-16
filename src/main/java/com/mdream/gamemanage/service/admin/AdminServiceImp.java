@@ -47,7 +47,6 @@ public class AdminServiceImp implements BaseServiceItl<Admin>{
 		return newAdmin;
 		
 	}
-	@Override
 	public void saveOrUpdate(Admin t) {
 		// TODO Auto-generated method stub
 		

@@ -57,6 +57,8 @@ public class GameServiceImp {
 		if(list==null || list.size()<1){
 			criteria.add( Restrictions.eq(criteria.getAlias()+".status",1));
 		}
+	
+		criteria.setCacheable(true);
 		criteria.setFirstResult((pageIndex-1)*pageSize);
 		criteria.setMaxResults(pageSize);
 		List<Game> result = criteria.list();
@@ -133,11 +135,18 @@ public class GameServiceImp {
 		gamePicDaoImp.deleteBygameId(id);
 	}
 
+	
+	public void fakedelete(int id){
+		
+		gameDaoImp.fakeDelete(id);
+		
+	}
 
 	public Game getGameInfo(int id) {
 		Game game = null;
 		game = hibernateResolversService.find(Game.class, id);
 		game.getGametypes().size();
+		game.getTypeRefs().size();
 		game.getPics().size();
 		game.getCommentRefs().size();
 		return game;

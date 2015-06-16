@@ -43,7 +43,6 @@ import com.mdream.gamemanage.model.game.Game;
 @Component
 public class JxlResolveImp implements JxlResolve{
 	
-	@Override
 	public void filling(String file,int start,Class clazz,BaseServiceItl service) throws Exception{
 		
 		InputStream instream = new FileInputStream(file);   			  

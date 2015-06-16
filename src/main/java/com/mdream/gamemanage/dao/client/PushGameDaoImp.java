@@ -50,7 +50,6 @@ public class PushGameDaoImp implements BaseDaoItl<PushGame>{
 
 	
 
-	@Override
 	public void saveOrUpdate(PushGame pg) {
 		Session session =  sessionFactory.getCurrentSession();
 		if(pg.getId()!=null&&pg.getId()>0){

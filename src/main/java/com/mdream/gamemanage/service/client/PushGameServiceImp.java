@@ -56,8 +56,9 @@ public class PushGameServiceImp implements BaseServiceItl<PushGame>{
 		Criteria criteria =  hibernateResolversService.getCriteria(list, game);	
 		if(list==null || list.size()<1){
 			criteria.add( Restrictions.eq(criteria.getAlias()+".status",1));
-			defaultHibernateDecorator.addDesc(criteria, criteria.getAlias()+".sort");
+			
 		}
+		criteria =  defaultHibernateDecorator.addDesc(criteria, criteria.getAlias()+".sort");
 		criteria.setFirstResult((pageIndex-1)*pageSize);
 		criteria.setMaxResults(pageSize);
 		List<PushGame> result = criteria.list();		
@@ -87,8 +88,9 @@ public class PushGameServiceImp implements BaseServiceItl<PushGame>{
 		if(list==null || list.size()<1){
 			criteria.add( Restrictions.eq(criteria.getAlias()+".status",1));
 			defaultHibernateDecorator.addDesc(criteria, criteria.getAlias()+".sort");
+			
 		}
-		
+		criteria.setCacheable(true);
 		List<PushGame> result = criteria.list();	
 		return result;
 	}
@@ -106,8 +108,7 @@ public class PushGameServiceImp implements BaseServiceItl<PushGame>{
 		return pushGameDaoImp.getCountByType(type);
 	}
 
-	@Override
-	public void saveOrUpdate(PushGame t) {
+	public void saveOrUpdate(PushGame t) {		
 		pushGameDaoImp.saveOrUpdate(t);
 		
 	}

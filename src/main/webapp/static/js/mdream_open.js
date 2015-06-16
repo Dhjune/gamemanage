@@ -157,7 +157,7 @@ Ws.prototype.initdown = function(target ,sign){
 		var jsonstr = $.toJSON(values);
 		$(inputs[0]).attr("value",jsonstr);
 	}
-	alert(jsonstr);
+	
 	
 	return true;
 	
@@ -647,3 +647,13 @@ Ws.prototype.selectval = function (target){
 	}
 } 
 
+
+Ws.prototype.num_validate = function (target){  
+    var reg = new RegExp("^[0-9]*$");     
+	if(!reg.test(target.value)){  
+	    alert("请输入数字!");  
+	}  
+	if(!/^[0-9]*$/.test(target.value)){  
+	    alert("请输入数字!");  
+	}  
+}  

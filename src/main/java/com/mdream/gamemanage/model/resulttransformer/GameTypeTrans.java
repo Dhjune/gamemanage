@@ -8,7 +8,11 @@ public class GameTypeTrans {
 	
 	private Integer status;
 	
+	private Integer sort ;
+	
 	private String typeName;
+	
+	private String gameName;
 	
 	public GameTypeTrans(){
 		
@@ -19,6 +23,16 @@ public class GameTypeTrans {
 		this.gameId =  gameId;
 		this.gameTypeId =  gameTypeId;
 		this.status =  status;
+		
+	}
+	
+	public GameTypeTrans(Integer gameId,Integer gameTypeId,String typeName,String gameName,Integer sort){
+		
+		this.gameId =  gameId;
+		this.gameTypeId =  gameTypeId;
+		this.sort =  sort;
+		this.typeName = typeName;
+		this.gameName =  gameName;
 		
 	}
 	
@@ -56,6 +70,22 @@ public class GameTypeTrans {
 
 	public void setTypeName(String typeName) {
 		this.typeName = typeName;
+	}
+
+	public Integer getSort() {
+		return sort;
+	}
+
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
+
+	public String getGameName() {
+		return gameName;
+	}
+
+	public void setGameName(String gameName) {
+		this.gameName = gameName;
 	}
 	
 	
