@@ -58,7 +58,7 @@ public class PushGameServiceImp implements BaseServiceItl<PushGame>{
 			criteria.add( Restrictions.eq(criteria.getAlias()+".status",1));
 			
 		}
-		criteria =  defaultHibernateDecorator.addDesc(criteria, criteria.getAlias()+".sort");
+		criteria =  defaultHibernateDecorator.addAsc(criteria, criteria.getAlias()+".sort");
 		criteria.setFirstResult((pageIndex-1)*pageSize);
 		criteria.setMaxResults(pageSize);
 		List<PushGame> result = criteria.list();		
@@ -86,10 +86,9 @@ public class PushGameServiceImp implements BaseServiceItl<PushGame>{
 	public List<PushGame> getAll(List<ExpressionGroup> list, PushGame game) throws NoSuchFieldException, SecurityException, ParseException{
 		Criteria criteria =  hibernateResolversService.getCriteria(list, game);	
 		if(list==null || list.size()<1){
-			criteria.add( Restrictions.eq(criteria.getAlias()+".status",1));
-			defaultHibernateDecorator.addDesc(criteria, criteria.getAlias()+".sort");
-			
+			criteria.add( Restrictions.eq(criteria.getAlias()+".status",1));						
 		}
+		defaultHibernateDecorator.addAsc(criteria, criteria.getAlias()+".sort");
 		criteria.setCacheable(true);
 		List<PushGame> result = criteria.list();	
 		return result;

@@ -1,8 +1,7 @@
 
 <div class="panel panel-default">
 <div class="panel-heading">
-	
-字条添加
+主推游戏添加
 	<a href="#" onclick="ws.callback()" type="button" class=" pull-right">
 	<span class="glyphicon glyphicon-fast-backward"  aria-hidden="true"></span> 返回列表
 </a></div>
@@ -20,7 +19,7 @@
 					<strong>$!{rdata.message}</strong></div>	
 		#end
 		
-    <a href="#" onclick="javascript:ws.get(this,'')" link="$!{urlTools.tr('/client/slide/create')}" >
+    <a href="#" onclick="javascript:ws.get(this,'')" link="$!{urlTools.tr('/client/pushgame/create')}" >
     	 继续添加
     </a>
 	

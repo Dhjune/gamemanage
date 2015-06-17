@@ -188,10 +188,21 @@ public class GameTypeRefController {
 	@RequestMapping(value="batchSaveOrUpdate")
 	@Permission
 	@ResponseBody
-	public String batchSaveOrUpdate(HttpServletRequest request) throws Exception{
-		String file = syncHttpWork.savefile(request, com.mdream.gamemanage.common.tools.Constans.FILE_BASE_SAVE_PATH);
-		jxlResolveImp.filling(file, 2, GameTypeTrans.class, gameTypeRefServiceImp);		
-		return "1234567";
+	public Map<String, String> batchSaveOrUpdate(HttpServletRequest request){
+		
+		Map<String, String> reply =  new HashMap<String,String>();
+		try{			
+			String file = syncHttpWork.savefile(request, com.mdream.gamemanage.common.tools.Constans.FILE_BASE_SAVE_PATH);
+			jxlResolveImp.filling(file, 2, GameTypeTrans.class, gameTypeRefServiceImp);	
+			reply.put("rcode", "1");
+			reply.put("message","操作成功");
+		}catch(Exception e){
+			e.printStackTrace();
+			reply.put("rcode", "-1");
+			reply.put("message","错误异常");
+		}
+			
+		return reply;
 	}
 	
 	@RequestMapping(value="downpage")

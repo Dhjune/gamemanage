@@ -91,7 +91,7 @@ public class PushgameController {
 	@Permission
 	public String home(Model model)throws Exception{
 						
-		String url = ToolsFactory.urlTools.tr("/pushgame/list%s");				
+		String url = ToolsFactory.urlTools.tr("/client/pushgame/list%s");				
 		PageNav<PushGame> context =null;
 		
 		PushGame pg = new PushGame();
@@ -136,7 +136,7 @@ public class PushgameController {
 			
 		}
 		
-		String url = ToolsFactory.urlTools.tr("/pushgame/list%s");				
+		String url = ToolsFactory.urlTools.tr("/client/pushgame/list%s");				
 		PageNav<PushGame> context =null;
 		PushGame pg = new PushGame();
 		int pageSize =  Constans.ACCOUNT_DEFAULT_PAGE_SIZE;
@@ -154,10 +154,21 @@ public class PushgameController {
 	@RequestMapping(value="batchSaveOrUpdate")
 	@Permission
 	@ResponseBody
-	public String batchSaveOrUpdate(HttpServletRequest request) throws Exception{
-		String file = syncHttpWork.savefile(request, com.mdream.gamemanage.common.tools.Constans.FILE_BASE_SAVE_PATH);
-		jxlResolveImp.filling(file, 2, PushGame.class, pushGameServiceImp);		
-		return "1234567";
+	public Map<String, String> batchSaveOrUpdate(HttpServletRequest request){
+		
+		Map<String, String> reply =  new HashMap<String,String>();
+		try{			
+			String file = syncHttpWork.savefile(request, com.mdream.gamemanage.common.tools.Constans.FILE_BASE_SAVE_PATH);
+			jxlResolveImp.filling(file, 2, PushGame.class, pushGameServiceImp);		
+			reply.put("rcode", "1");
+			reply.put("message","操作成功");
+		}catch(Exception e){
+			e.printStackTrace();
+			reply.put("rcode", "-1");
+			reply.put("message","错误异常");
+		}
+		
+		return reply;
 	}
 	
 	

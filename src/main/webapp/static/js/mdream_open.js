@@ -113,12 +113,17 @@ Ws.prototype.ajaxform =  function (target){
             	view += "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
             	view += "<strong>"+data.message+"</strong></div>";	
         	}
-        	       	
-			$('#update_alert_view').html(view);
-			
-			setTimeout(function(){
-				$('#update_alert_view').html("");
-			}, 3000)
+        	var  update_view =    $('#update_alert_view');
+        	if(update_view!=null){
+        		update_view.html(view);
+    			
+    			setTimeout(function(){
+    				update_view.html("");
+    			}, 3000)
+        	}else{
+        		alert(data.message);
+        	}
+        	
 			
         }
     	});

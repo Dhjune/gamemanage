@@ -8,12 +8,12 @@ public class Constans {
 	//public static final String IMG_BASE_SAVE_URL = "http://img.kjava.com/";
 	
 	//图片存储物理地址
-	//public static final String IMG_BASE_SAVE_PATH = "/upload/img/";
-	public static final String IMG_BASE_SAVE_PATH = "F:/img/";
+	public static final String IMG_BASE_SAVE_PATH = "/upload/img/";
+	//public static final String IMG_BASE_SAVE_PATH = "F:/img/";
 	
 	//文件存储地址
-	//public static final String FILE_BASE_SAVE_PATH = "/upload/file/";
-	public static final String FILE_BASE_SAVE_PATH = "F:/file/";
+	public static final String FILE_BASE_SAVE_PATH = "/upload/file/";
+	//public static final String FILE_BASE_SAVE_PATH = "F:/file/";
 	
 	
 	

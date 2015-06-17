@@ -55,17 +55,18 @@ public class GameTypeRefServiceImp implements BaseServiceItl<GameTypeTrans>{
 //			criteria.setCacheable(true);
 			
 			criteria.add( Restrictions.eq(criteria.getAlias()+".status",1));
-			criteria =  defaultHibernateDecorator.addDesc(criteria, criteria.getAlias()+".sort");
-			System.out.println(criteria.toString());
+			criteria =  defaultHibernateDecorator.addAsc(criteria, criteria.getAlias()+".sort");
+		
 			criteria.setFirstResult((pageIndex-1)*pageSize);
 			criteria.setMaxResults(pageSize);
-			List<T> result = criteria.list();			
+			List<T> result = criteria.list();
+		
 			//记录数 
 //			criteria.setProjection( Projections.projectionList()
 //					.add( Projections.countDistinct(criteria.getAlias()+".id"))		
 //				);
-//			criteria.setFirstResult(0);
-//			criteria.setMaxResults(1);
+			criteria.setFirstResult(0);
+			criteria.setMaxResults(1);
 //			List counts = criteria.list();
 			
 			long total = 0; 
@@ -88,9 +89,10 @@ public class GameTypeRefServiceImp implements BaseServiceItl<GameTypeTrans>{
 		Criteria criteria =  hibernateResolversService.getCriteria(list, game);	
 		if(list==null || list.size()<1){
 			criteria.add( Restrictions.eq(criteria.getAlias()+".status",1));
-			defaultHibernateDecorator.addDesc(criteria, criteria.getAlias()+".sort");
+			
 			
 		}
+		defaultHibernateDecorator.addAsc(criteria, criteria.getAlias()+".sort");
 		criteria.setCacheable(true);
 		List<GameTypeRef> result = criteria.list();
 		
