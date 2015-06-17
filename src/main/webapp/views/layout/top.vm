@@ -7,13 +7,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">后台管理</a>
+          <a class="navbar-brand" href="$!{urlTools.tr('/admin/index')}">后台管理</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-left">
 			
             <li><a href="#">帮助</a></li>
-            <li><a href="#">彩码设计 </a></li>
+            <li><a href="$!{urlTools.tr('/qrcode/index')}">彩码设计 </a></li>
 			
 			#if($!{wxsqUser.level}== 0)
     			<li role="presentation" class="dropdown open">

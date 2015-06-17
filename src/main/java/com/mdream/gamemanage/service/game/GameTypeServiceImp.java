@@ -14,6 +14,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mdream.gamemanage.common.proxy.hibernate.criteria.DefaultHibernateDecorator;
 import com.mdream.gamemanage.common.proxy.hibernate.criteria.ExpressionGroup;
 import com.mdream.gamemanage.common.proxy.hibernate.criteria.HibernateResolvers;
 import com.mdream.gamemanage.common.proxy.hibernate.criteria.HibernateResolversService;
@@ -43,6 +44,9 @@ public class GameTypeServiceImp {
 	@Autowired
 	private TypeTagDaoImp typeTagDaoImp;
 	
+	@Autowired
+	private DefaultHibernateDecorator defaultHibernateDecorator;
+	
 	public GameType get(int id){
 		
 		return hibernateResolversService.find(GameType.class, id);
@@ -62,6 +66,7 @@ public class GameTypeServiceImp {
 			//分页结果集
 		//	setResultTransformer(Transformers.aliasToBean(StatCountbook.class));
 			Criteria criteria =  hibernateResolversService.getCriteria(list, target);	
+			criteria.setCacheable(true);
 			criteria.add( Restrictions.eq(criteria.getAlias()+".status",1));
 			criteria.setFirstResult((pageIndex-1)*pageSize);
 			criteria.setMaxResults(pageSize);
@@ -114,6 +119,8 @@ public class GameTypeServiceImp {
 	}
 	
 	public List<GameType> list(){
+		Criteria criteria = hibernateResolvers.getCriteria(new GameType());
+		defaultHibernateDecorator.addDesc(criteria, criteria.getAlias()+".sort");
 		return  hibernateResolvers.list(new GameType());
 	}
 

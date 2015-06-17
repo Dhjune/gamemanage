@@ -97,10 +97,24 @@ public class SlideRefDaoImp {
 		query.executeUpdate();
 	}
 	
+	public void fakeDelete(int slideId,int showId){
+		Session session  =  sessionFactory.getCurrentSession();
+		Query query =session.createSQLQuery("update  slide_show_ref set status=0 where slideShowId =? and slideId =?");
+		query.setParameter(0, showId);
+		query.setParameter(1, slideId);
+		query.executeUpdate();
+	}
 	
 	public void deleteBySlideId(int slideId){
 		Session session  =  sessionFactory.getCurrentSession();
 		Query query =session.createSQLQuery("delete from slide_show_ref where slideId =?");
+		query.setParameter(0, slideId);
+		query.executeUpdate();
+	}
+	
+	public void fakeDeleteByslideId(int slideId){
+		Session session  =  sessionFactory.getCurrentSession();
+		Query query =session.createSQLQuery("update from slide_show_ref set  status = 0 where slideId =?");
 		query.setParameter(0, slideId);
 		query.executeUpdate();
 	}
@@ -112,6 +126,12 @@ public class SlideRefDaoImp {
 		query.executeUpdate();
 	}
 
-
+	public void fakeDeleteBySlideShowId(int showId){
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createSQLQuery("update  slide_show_ref set status = 0 where slideShowId = ? ");
+		query.setParameter(0, showId);
+		query.executeUpdate();
+	}
+	
 	
 }

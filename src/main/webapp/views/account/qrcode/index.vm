@@ -1,0 +1,262 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+     #parse("/layout/header.vm") 
+	 <script src="$!{urlTools.ts('/kindeditor/kindeditor.js')}"></script>
+	 <script src="$!{urlTools.ts('/kindeditor/lang/zh_CN.js')}"></script>
+	 
+	<script>
+		var init_view ="text"
+        function qrcode_trigger(view){
+        	
+        	if(view =="text"){
+        		$("#trigger-type_"+init_view).hide();
+        		$("#trigger-type_text").show();		
+        		init_view = view;
+        												
+        	}
+        	
+        	if(view =="link"){
+        		$("#trigger-type_"+init_view).hide();
+        		$("#trigger-type_link").show();	
+        		init_view = view;
+        	}
+        	
+        	if(view =="image"){
+        		$("#trigger-type_"+init_view).hide();
+        		$("#trigger-type_image").show();	
+        		init_view = view;
+        	}
+        	
+        	
+        	
+        }	
+	
+		KindEditor.ready(function (K) {
+             var editor = K.editor({
+                allowFileManager: true,
+                fileManagerJson: "$!{urlTools.tr('/ke/filelist')}",
+                uploadJson: "$!{urlTools.tr('/ke/upload')}",
+                urlType: 'domain',
+                
+            });								
+			K('#ImageUrlBtn').click(function() {
+				editor.loadPlugin('image', function() {
+					editor.plugin.imageDialog({						
+						imageUrl :  K('#ImageUrlImg').attr('src'),
+						clickFn : function(url, title, width, height, border, align) {
+							K('#ImageUrlImg').attr('src', url);							
+							K('#logoUrl').val(url);
+							K('#logoPath').val(title);
+							editor.hideDialog();
+						}
+					});
+				});
+			});
+		});		
+		$().ready(function(){
+			var str = "";
+			
+			#if($!{type}=="text")
+				str = str+"<textarea rows ='10' id ='content'  name ='content' style='width: 620px;height :360px'>$!{qrCodeConfig.content}</textarea>";
+				
+			#elseif($!{type}=="link")	
+				str = str+ "网页链接Url"+
+    			"<hr> <input type='text' id ='content'  name ='content' style='width: 460px;'  #if($!{qrCodeConfig.content}) value='$!{qrCodeConfig.content}' #else value='http://' #end>";
+			#end
+			$("#trigger-type").html(str);		
+			#if($!{qrCodeConfig})			
+    			$("#select1").find("option[value='$!{qrCodeConfig.background_color_str}']").attr("selected",true);
+    			$("#select2").find("option[value='$!{qrCodeConfig.to_color_str}']").attr("selected",true);
+			#end
+		}
+		);
+		
+		function qrcode_create(){
+			
+		    var url = "$!{urlTools.tr('/qrcode/create')}";
+			$.post(url,{
+    			content:"Donald Duck",
+   				city:"Duckburg"
+  				},
+				function (data){
+                    if(data != null){						
+					}
+            },"json");
+		}
+		
+		function qrcode_refresh(){
+			var url = "$!{urlTools.tr('/qrcode/')}$!{type}"
+			$.post(url,{
+    			content:$("#content").val(),
+   				imageUrl:$("#imageUrl").val(),
+				imagePath:$("#imagePath").val(),
+				width:$("#width").val(),
+				height:$("#height").val(),
+				width:$("#width").val(),
+				backgournd_color_str:$("#select1").val(),
+				to_color_str:$("#select2").val(),
+				logoPath:$("#logoPath").val(),
+				logoUrl:$("#logoUrl").val()
+  				},
+				function (data){					
+                    if(data != null){					
+						$("#qrCode_imageUrl").attr('src', data.imageUrl)
+					}
+            },"json");
+		}
+	</script>
+    <!-- Le styles -->  						
+    <!-- Le styles -->  
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+
+      @media (max-width: 980px) {
+        /* Enable use of floated navbar text */
+        .navbar-text.pull-right {
+          float: none;
+          padding-left: 5px;
+          padding-right: 5px;
+        }
+      }
+    </style>   
+  
+  </head>
+  <body>
+	#parse("./layout/top.vm")
+	
+	<div class="container-fluid">
+		<div class="col-md-10">
+	
+    		<div class="navbar">
+    			<div class="navbar-inner">
+					<ul class="nav navbar-nav">
+            		
+            			 <li><a href="$!{urlTools.tr('/qrcode/index')}?type=link" >网页链接</a></li>
+            			<li class="divider-vertical"></li>
+            			 <li><a href="$!{urlTools.tr('/qrcode/index')}?type=text">文本</a></li>
+            			<li class="divider-vertical"></li>
+            			 <li><a href="#" onclick="qrcode_trigger('image')">图片</a></li>
+            			<li class="divider-vertical"></li>
+            			 <li><a href="#" onclick="qrcode_trigger('none')">名片</a></li>
+            			<li class="divider-vertical"></li>
+            			 <li><a href="#" onclick="qrcode_trigger('none')">微信</a></li>
+            			<li class="divider-vertical"></li>
+						 <li><a href="#" onclick="qrcode_trigger('none')">文件</a></li>
+            			<li class="divider-vertical"></li>
+						<li><a href="#" onclick="qrcode_trigger('none')">活码</a></li>
+            			<li class="divider-vertical"></li>
+						<li><a href="#" onclick="qrcode_trigger('none')">商用码</a></li>
+            			<li class="divider-vertical"></li>
+              
+                    </ul>
+                </div>
+    		</div>
+        </div>
+		<div class="row">
+			<form  class="form-horizontal uni" method="post" action="$!{urlTools.tr('/qrcode/')}$!{type}">
+				<input type="hidden" name="type" id="type" value="$!{type}">
+			<div class="col-md-8" >
+				
+    				<div id="trigger-type" style="width: 700px;height:420px">
+    				
+                    </div>
+    						
+				<div class="control-group">
+    				 <div class="controls">
+                        <button type="submit"  class="btn btn-large btn-success">生成二维码</button>
+                     </div>
+                </div>
+			</div>
+			
+			<div class="col-md-8" style="width: 260px">
+				<table class="table table-striped">
+					<tbody>
+						<tr>
+							<td style="width: 260px">
+								<input type="hidden" name="imagePath" id="imagePath" value="$!{qrCodeConfig.imagePath}">
+								<input type="hidden" name="imageUrl" id="imageUrl" value="$!{qrCodeConfig.imageUrl}">
+								<img  id ="qrCode_imageUrl"src="$!{qrCodeConfig.imageUrl}"  alt="200x200" style="width: 200px; height: 200px;"/>
+							</td>	
+						</tr>
+					</tbody>
+                </table>
+				<div >
+				宽度:
+                <input id="width" name='width' style="display:inline ;width :60px" value="#if($!{qrCodeConfig})$!{qrCodeConfig.width}#else 200 #end"/>
+				高度：
+				<input id="height" name='height' style="width :60px" value="#if($!{qrCodeConfig})$!{qrCodeConfig.height}#else 200 #end"/>	
+				<br>
+                </b>
+				背景色：
+				<select id='select1' name ='backgournd_color_str' style="display:inline ;width :60px">
+					<option value="WHITE">无色</option>
+					<option value="RED">红色</option>					
+					<option value="BLUE">天蓝</option>
+					<option value="YELLOW_GREEN">黄绿</option>
+					<option value="ORANGE">橙色</option>
+					<option value="YELLOW">黄色</option>
+					<option value="GREEN">绿色</option>
+					<option value="CYAN">青色</option>
+					<option value="BLACK">黑色</option>
+					<option value="VIOLET">紫色</option>
+					
+					
+				</select>
+				<br>
+				上色：
+				<select id='select2' name ='to_color_str' style="display:inline ;width :60px">
+					<option value="BLACK">黑色</option>					
+					<option value="RED">红色</option>					
+					<option value="BLUE">天蓝</option>
+					<option value="YELLOW_GREEN">黄绿</option>
+					<option value="ORANGE">橙色</option>
+					<option value="YELLOW">黄色</option>
+					<option value="GREEN">绿色</option>
+					<option value="CYAN">青色</option>				
+					<option value="VIOLET">紫色</option>
+				</select>
+				</div>															
+				<div >
+						logo图片
+                    <button type="button" class="btn btn-mini" id="ImageUrlBtn">选择图片
+                    </button>
+                    <br>
+                    <img id="ImageUrlImg" name="ImageUrlImg" src="$!{logoConfig.logoUrl}"
+                         style="width:120px;height: 120px;" />
+                    <input type="hidden" name="logoUrl" id="logoUrl" value="$!{logoConfig.logoUrl}">
+					<input type="hidden" name="logoPath" id="logoPath" value="$!{logoConfig.logoPath}">	
+					<button type="button" class="btn  btn-success" onclick="qrcode_refresh()">刷新</button>
+                </div>	
+				
+			</div>			
+			</form>
+		</div>
+	</div>
+    
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

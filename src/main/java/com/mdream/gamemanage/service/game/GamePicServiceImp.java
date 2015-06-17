@@ -45,6 +45,7 @@ public class GamePicServiceImp {
 		//	setResultTransformer(Transformers.aliasToBean(StatCountbook.class));
 			Criteria criteria =  hibernateResolversService.getCriteria(list, target);	
 			criteria.add( Restrictions.eq(criteria.getAlias()+".status",1));
+			criteria.setCacheable(true);
 			criteria.setFirstResult((pageIndex-1)*pageSize);
 			criteria.setMaxResults(pageSize);
 			List<T> result = criteria.list();			

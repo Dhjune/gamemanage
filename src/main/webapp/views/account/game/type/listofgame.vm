@@ -3,16 +3,19 @@
 	<br />
 	信息
  </p> 
-#foreach($type in $!{game.getGametypes()})
-	     &nbsp;&nbsp;                    
-	  <p   class="text-success" style="display:inline-block">                       
-			$!{type.name}
-			<br >
-			<a href="#" link="$!{urlTools.tr('/game/type/ref/delete?gameId=')}$!{game.id}&typeId=$!{type.id}" onclick="ws.post(this,'game_type_view')" class="btn btn-xs btn-danger " role="button">删除</a>
-			
-      </p>
-	   				
-#end
+ 
+					 #foreach($ref in $!{game.getTypeRefs()})
+        				     &nbsp;&nbsp;                    
+						       <p   class="text-success" style="display:inline-block">                       
+        						$!{ref.pk.gameType.name}
+        						<br >
+									
+        						<a href="#" link="$!{urlTools.tr('/game/type/ref/delete?gameId=')}$!{game.id}&typeId=$!{ref.pk.gameType.id}" onclick="ws.post(this,'game_type_view')" class="btn btn-xs btn-danger " role="button">删除</a> 
+								
+                          </p>
+                
+						   				
+					#end
  &nbsp;&nbsp;  
 	<p   class="text-success" style="display:inline-block">                       
 			

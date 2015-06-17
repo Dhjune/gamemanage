@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import org.springframework.stereotype.Component;
 
 //用于执行非同步任务 
-@Component
+//@Component
 public class ProxyThreadPools {
 	
 	//单例线程池
@@ -40,7 +40,7 @@ public class ProxyThreadPools {
 																									
 		if(inited.compareAndSet(false , true)){
 			System.out.println("***************************************");
-			executor = new ThreadPoolExecutor(2, 6, 60L, TimeUnit.SECONDS,  
+			executor = new ThreadPoolExecutor(2, 6, 4, TimeUnit.SECONDS,  
 	                new LinkedBlockingQueue());  			
 		}
 		

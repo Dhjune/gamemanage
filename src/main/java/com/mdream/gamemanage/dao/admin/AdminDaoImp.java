@@ -15,7 +15,7 @@ import com.mdream.gamemanage.model.admin.Admin;
 
 
 @Repository
-public class AdminDaoImp implements BaseDaoItl{
+public class AdminDaoImp implements BaseDaoItl<Admin>{
 	
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -33,6 +33,13 @@ public class AdminDaoImp implements BaseDaoItl{
 		}
 		return admin;		
 	}
+
+	public void saveOrUpdate(Admin admin) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 	
 	
 	

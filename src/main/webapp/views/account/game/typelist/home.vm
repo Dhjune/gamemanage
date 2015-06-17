@@ -1,0 +1,224 @@
+	
+<script>
+	$(function() {
+		var  ref_sign = "$!{sign}";
+	    var	 ref_url ="$!{urlTools.tr('/game/type/ref/list')}"
+		$.ajax({  
+		        url : "$!{urlTools.tr('/game/type/jlist')}",  
+		        type : 'POST',        
+		        contentType : 'application/json',  
+		        success : function(data, status, xhr) {  		       			
+					var v_str = "";
+		        	for(var i=0;i<data.length;i++){
+					console.log(data[i]);
+						v_str +=  "<label class='radio-inline'>";
+						v_str +=  "<input type='radio' id='game_type_"+data[i].id+"' sign='"+ref_sign+"' url='"+ref_url+"'  opgroup='"+"AND' alias='" +"ref' group='1' name='pk.gameType.id' operate='IS' onchange='javascript:ws.check(this);' value='"+data[i].id+"'>" +data[i].name+" </label>";
+						
+					
+					}
+					$("#game_type_list").html(v_str);
+		        }
+			});
+			
+	});
+</script>  
+  
+<div class="panel panel-default">
+<div class="panel-heading">分类游戏管理</div>
+	
+  <div class="panel-body">
+	
+	
+		
+	<div class="highlight">
+		
+		<div class="modal fade" id="batchgtRefModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">全部修改</h4>
+                  </div>
+                  <div class="modal-body">
+					<form role="form" class="form-horizontal" id="batchgtRefUpdate" method="post" action="$!{urlTools.tr('/game/type/ref/batchSaveOrUpdate')}"  >					
+						<div class="form-group">
+                            <label class="col-sm-3 control-label">选择excel数据表</label>
+                            <div class="col-sm-4">
+                              <input  id="fortypeFile" type="file" name="pushFile"/>
+                            </div>
+                          </div>
+						
+						 
+						  						  
+                        </form>
+																		
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" link ="$!{urlTools.tr('/game/type/ref/list')}" onclick="ws.ajaxcreatecallback($('#batchgtRefUpdate'),'#second_view','$!{sign}',this)" class="btn btn-primary" data-dismiss="modal">提交</button>
+                  </div>
+                </div>
+              </div>
+            </div>	
+				<!--			
+				<div class="row">	
+					
+					<div class="col-md-8">
+						
+    					
+							
+					</div>
+					<div class="col-md-4 pull-right">
+						
+						<form class="form-inline" id="gamesearch" role="form" onsubmit="return false" method="post">
+							
+                          <div class="form-group">
+                            <label class="sr-only control-label" for="forvalue">游戏搜索</label>
+                            <input type="text" id="game_name_search" sign="$!{sign}" url ="$!{urlTools.tr('/game/list')}" upalias="" opgroup="AND" alias="game" group="1" name="name"  operate="LIKE"   placeholder="游戏名称">
+                          </div>						  
+                          <button type="button"  url ="$!{urlTools.tr('/game/search')}" onclick="javascript:ws.search(this,'$!{sign}','#gamesearch');" class="btn btn-default"><span class="glyphicon glyphicon-search"></span>搜索</button>
+                        </form>	
+						
+					</div>
+															
+				</div>
+				-->
+			<div id = "search_view">	
+				 <div class="thumbnail">
+        				<dl class="dl-horizontal ">
+                            <!--
+							<dt>ID范围:</dt>
+                            <dd>  
+							<label class="radio-inline">
+								<input type="text" id="game_id_more" sign="$!{sign}" upalias="" url ="$!{urlTools.tr('/game/list')}" opgroup="AND" alias="ref" group="1" name="id"  operate="GTE" onchange="javascript:ws.check(this);" value="" >
+									
+                         	
+        						<input type="text" id="game_id_less" sign="$!{sign}" upalias="" url ="$!{urlTools.tr('/game/list')}" opgroup="AND" alias="ref" group="1" name="id"  operate="LTE" onchange="javascript:ws.check(this);" value="" >
+        			
+                 			 </label>  
+					
+							</dd>
+							-->
+							<br />
+							<dt> 分类选择:</dt>
+							  <dd > 
+								<div id="game_type_list" class="radio-inline"> 
+						  </div>
+							</dd>						
+                          </dl>
+        			 </div>
+			    
+		
+		<div id="second_view">
+        
+            	<div class="panel panel-default">
+                <div class="panel-heading"><a asynchronize="true"  href="#" >游戏列表 </a></div>                	
+                <div class="panel-body">
+                <table class="table table-bordered">
+					
+                	 <tr>
+                		
+                		<td>游戏名称</td>
+                		<td>分类</td>
+                		<td>序号 </td>
+                		<td>创建时间</td>
+                		<td>操作</td> 
+						
+                     </tr>
+					 
+                        	#foreach($item in $!{context.list})
+                        		 <tr>
+                        			<td>$!{item.pk.game.name}</td>
+                        			<td>$!{item.pk.gameType.name}</td>
+                					
+                					<td>
+										$!{item.sort}
+										
+									</td>		
+									
+										
+                        			<td>
+										
+                						$!{item.createTime}
+										
+                					</td>
+                					
+                					<td>
+                						#if($!{item.status}==1)
+                						<div class="btn-group" role="group" aria-label="...">
+										 <!-- <a type="button" onclick="javascript:ws.get(this,'')" link="$!{urlTools.tr('/game/type/ref/view?gameId=')}$!{item.pk.game.id}&typeId=$!{item.pk.gameType.id}"  class="btn btn-xs btn-primary">详情</a>
+                						  &nbsp;
+										   -->
+                                          <a type="button" onclick="javascript:ws.get(this,'')" link="$!{urlTools.tr('/game/type/ref/update?gameId=')}$!{item.pk.game.id}&typeId=$!{item.pk.gameType.id}"  class="btn btn-xs btn-success">修改</a>
+                						  &nbsp;
+										  <!--
+                                          <a type="button" onclick="javascript:ws.delback(this,'')" link="$!{urlTools.tr('/game/type/ref/delete?gameId=')}$!{item.pk.game.id}&typeId=$!{item.pk.gameType.id}"  class="btn btn-xs btn-danger">删除 </a>
+										   -->
+                                        </div>
+										#elseif($!{item.status}==0)
+											<div class="btn-group" role="group" aria-label="...">
+										  <a type="button" onclick="javascript:ws.recback(this,'')" link="$!{urlTools.tr('/game/type/ref/recover?id=')}$!{item.id}"  class="btn btn-xs btn-warning">恢复</a>
+                						  </div>
+										#end	
+										
+                						
+                					</td>
+                                    
+                                 </tr>
+                        	#end
+                    </table>
+                		<div id="pageNav">
+                				<div class=" pull-left pagination">
+                    					<table class="table">
+                                         <tr>											
+											
+											<td>
+												<a type="button"  data-toggle="modal" data-target="#batchgtRefModel" class="btn btn-sm btn-primary">批量修改</a>
+											</td>
+											
+											<td>
+											<form class="form-horizontal " stype="display:inline" id="downpage" action="$!{urlTools.tr('/game/type/ref/downpage?pageIndex=')}$!{context.pageIndex}" method="post" onsubmit ="return ws.initdown(this,'$!{sign}');" >
+           		  
+                                	
+                                			  <input type="hidden" name ="values" value="" />           		
+                                		
+                                            
+                                              <input type="submit"   class="btn btn-sm btn-primary" value="导出当前页"></input>
+                							  
+                							                                       
+                                        </form>	
+											
+											</td>
+											
+											<td>
+											<form class="form-horizontal " stype="display:inline" id="downloadAll" action="$!{urlTools.tr('/game/type/ref/downloadAll')}" method="post" onsubmit ="return ws.initdown(this,'$!{sign}');" >
+           		  
+                                	
+                                			  <input type="hidden" name ="values" value="" />           		
+                                		
+                                            
+                                              <input type="submit"   class="btn btn-sm btn-primary" value="导出全部"></input>
+                							  
+                							                                       
+                                        </form>	
+											
+											</td>
+										  </tr>
+                                        </table>
+                    				</div>				
+                				#parse("/layout/pagenav.vm")
+								
+                           </div>
+                		   
+                </div>
+                </div>
+                		   
+			   
+			  
+		</div>
+		
+			</div>
+       </div>
+	</div>
+</div>
+                          

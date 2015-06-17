@@ -40,7 +40,9 @@ public class SlideController {
 	@RequestMapping(value="create",method=RequestMethod.GET)
 	@Permission
 	public String create(){
+		
 		return "account/client/slide/create";
+		
 	}
 	
 	@RequestMapping(value="create",method=RequestMethod.POST)
@@ -48,13 +50,17 @@ public class SlideController {
 	public String create(Slide slide,Model model){
 				
 		Map<String, String> reply =  new HashMap<String,String>();
-		try{			
+		try{		
+			
 			slideServiceImp.save(slide);
 			reply.put("rcode", "1");
 			reply.put("message","操作成功");
+			
 		}catch(Exception e){
+			
 			reply.put("rcode", "-1");
 			reply.put("message","错误异常");
+			
 		}
 		model.addAttribute("rdata", reply);
 		

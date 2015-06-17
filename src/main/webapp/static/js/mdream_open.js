@@ -113,12 +113,17 @@ Ws.prototype.ajaxform =  function (target){
             	view += "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
             	view += "<strong>"+data.message+"</strong></div>";	
         	}
-        	       	
-			$('#update_alert_view').html(view);
-			
-			setTimeout(function(){
-				$('#update_alert_view').html("");
-			}, 3000)
+        	var  update_view =    $('#update_alert_view');
+        	if(update_view!=null){
+        		update_view.html(view);
+    			
+    			setTimeout(function(){
+    				update_view.html("");
+    			}, 3000)
+        	}else{
+        		alert(data.message);
+        	}
+        	
 			
         }
     	});
@@ -141,6 +146,71 @@ Ws.prototype.ajaxrefcreate =  function (target,page_view){
     	});				
 		return false;
 	}
+
+Ws.prototype.initdown = function(target ,sign){
+	var  term =  "[sign='"+sign+"']";
+	var items =  $(term);	
+	var inputs = $(target).find("input");
+	
+	for(var i=0;i<items.length;i++){
+		ws.getval(items[i]);
+	}
+
+	var values = m_data[sign];
+	
+	if(values!=null){
+		var jsonstr = $.toJSON(values);
+		$(inputs[0]).attr("value",jsonstr);
+	}
+	
+	
+	return true;
+	
+}
+
+Ws.prototype.ajaxcreatecallback = function(target,page_view,sign,btn){
+		if(!arguments[1]) page_view = "#container_iframe";
+		var $this =  $(btn);
+		var  _clickTab = $this.attr('link'); 
+		target.ajaxSubmit({
+	        //定义返回JSON数据，还包括xml和script格式
+			type:'POST',
+	        beforeSend: function() {
+	            //表单提交前做表单验证
+	        },
+	        success: function(datas) {
+	        //	$("#container_iframe").html(data);
+	        	var  term =  "[sign='"+sign+"']";
+	        	var items =  $(term);
+	        	for(var i=0;i<items.length;i++){
+	        		ws.getval(items[i]);
+	        	}
+	        	var values = m_data[sign];
+	        	if(values==null){
+	        		values= new Array();
+	        	}
+	        	$.ajax({  
+	                url : _clickTab,  
+	                type : 'POST',  
+	                data : $.toJSON(values),           
+	                contentType : 'application/json',  
+	                success : function(data, status, xhr) {  
+	                	if(page_view!=""){
+
+	                		$(page_view).html(data);
+	                		ws.record.data =  values;
+	                		ws.record.url =  _clickTab;
+	                		
+	                	}else{
+	                		$("#container_iframe").html(data); 
+	                	}
+	                }
+	        	});
+	        	
+	        }
+	    	});				
+			return false;
+}
 
 Ws.prototype.get = function(target,_blank,record){
 	if(!arguments[2]) record = false;
@@ -582,3 +652,13 @@ Ws.prototype.selectval = function (target){
 	}
 } 
 
+
+Ws.prototype.num_validate = function (target){  
+    var reg = new RegExp("^[0-9]*$");     
+	if(!reg.test(target.value)){  
+	    alert("请输入数字!");  
+	}  
+	if(!/^[0-9]*$/.test(target.value)){  
+	    alert("请输入数字!");  
+	}  
+}  

@@ -53,6 +53,7 @@ public class HibernateResolvers {
 		Session session =  sessionFactory.getCurrentSession();	
 		session.update(object);
 		
+		
 	}
 	
 	public <T> void merge(T obj) throws Exception{
@@ -76,6 +77,12 @@ public class HibernateResolvers {
 		criteria.add( Restrictions.eq("status", 1)); 
 
 		return (List<T>) criteria.list();
+	}
+	
+	public <T> Criteria getCriteria(T t){
+		Session session =  sessionFactory.getCurrentSession();	
+		Criteria criteria =  session.createCriteria(t.getClass());
+		return criteria;
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unused" })
@@ -157,17 +164,11 @@ public class HibernateResolvers {
 			            break;
 			        case LIKE:	
 			        	
-			        	for(Expression e : expressions){			        		
-			        		Order(criteria, e.operate,eg.getAlias(), e.name);	
-			        	}
+			        
 			        	
 			            break;
 			        case ILIKE:	
-			        	
-			        	for(Expression e : expressions){			        		
-			        		Order(criteria, e.operate,eg.getAlias(), e.name);	
-			        	}
-			        	
+			        				        
 			            break;
 			            
 			        default:
@@ -200,31 +201,31 @@ public class HibernateResolvers {
     	Criterion  simple = null;
     	if(e.operate.equals("GT")){
     		
-    		simple = Restrictions.gt(alias+"."+e.name, getField(clazz, e.name, e.value));
+    		simple = Restrictions.gt(alias+"."+e.name, getFieldByObject(clazz, e.name, e.value));
     		
     	}else if(e.operate.equals("GTE")){
     		getField(clazz, e.name, e.value).getClass();
-    		simple = Restrictions.ge(alias+"."+e.name, getField(clazz, e.name, e.value));
+    		simple = Restrictions.ge(alias+"."+e.name, getFieldByObject(clazz, e.name, e.value));
     		
     	}else if(e.operate.equals("LT")){
     		
-    		simple = Restrictions.lt(alias+"."+e.name, getField(clazz, e.name, e.value));
+    		simple = Restrictions.lt(alias+"."+e.name, getFieldByObject(clazz, e.name, e.value));
     		
     	}else if(e.operate.equals("LTE")){
     		
-    		simple = Restrictions.le(alias+"."+e.name, getField(clazz, e.name, e.value));
+    		simple = Restrictions.le(alias+"."+e.name, getFieldByObject(clazz, e.name, e.value));
     		
     	}else if(e.operate.equals("IS")){
     		
-    		simple = Restrictions.eq(alias+"."+e.name, getField(clazz, e.name, e.value));
+    		simple = Restrictions.eq(alias+"."+e.name, getFieldByObject(clazz, e.name, e.value));
     		
     	}else if(e.operate.equals("LIKE")){
     		
-    		simple = Restrictions.like(alias+"."+e.name, getField(clazz, e.name, e.value).toString(),MatchMode.ANYWHERE);
+    		simple = Restrictions.like(alias+"."+e.name, getFieldByObject(clazz, e.name, e.value).toString(),MatchMode.ANYWHERE);
     		
     	}else if(e.operate.equals("ILIKE")){
     		
-    		simple = Restrictions.ilike(alias+"."+e.name, getField(clazz, e.name, e.value).toString(),MatchMode.ANYWHERE);
+    		simple = Restrictions.ilike(alias+"."+e.name, getFieldByObject(clazz, e.name, e.value).toString(),MatchMode.ANYWHERE);
     		
     	}
     	
@@ -296,7 +297,7 @@ public class HibernateResolvers {
     
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public <T> T getField( Class t,String name,String value) throws NoSuchFieldException, SecurityException, ParseException{
-		
+    	
 		Class type = t.getDeclaredField(name).getType();
 	
 		if(type.getName().equals("java.lang.String")) { 			
@@ -350,9 +351,68 @@ public class HibernateResolvers {
 		return (T) value;
 	}
 
-    
-    
-	
-	
-	
+	public <T> T getFieldByObject( Class t,String name,String value) throws NoSuchFieldException, SecurityException, ParseException{
+		
+		//ps . |都是转义字符，加上\\
+		String[] columns =  name.split("\\.");
+		
+		
+		if(columns.length>1){						
+			return (T) new Integer(value);
+		}else{
+			Class type = t.getDeclaredField(name).getType();
+			
+			if(type.getName().equals("java.lang.String")) { 			
+				return (T) value; 
+			}
+			
+			else if(type.getName().equals("java.util.Date")) {
+				Date date = null;
+				//Date date = format.parse(value);
+				if(value.length()<=11){
+					date = formatDate.parse(value);
+				}else if(value.length()<=19){
+					date = formatTime.parse(value);
+				}
+				return (T) date; 
+			}
+			
+			else if(type.equals("java.lang.Boolean")) { 
+				Boolean bool=true; 
+				
+				if(value.equals("false")) { 
+					bool=false; 
+				} 
+				return (T) bool; 
+			} 
+					
+			else if(type.getName().equals("int")||type.getName().equals("java.lang.Integer")) {
+				
+				return (T) new Integer(value);
+				
+			} 
+			
+			else if(type.getName().equals("float")||type.getName().equals("java.lang.Float")) {
+				
+				return (T) new Float(value);
+				
+			} 
+
+			else if(type.getName().equals("long")||type.getName().equals("class java.lang.Long")) { 
+				
+				return (T) new Long(value);
+							
+			} 
+			
+			else if(type.getName().equals("double")||type.getName().equals("class java.lang.Double")) { 
+				
+				return (T) new Long(value);
+				
+			} 
+			
+		
+		}
+		
+		return (T) value;
+	}
 }

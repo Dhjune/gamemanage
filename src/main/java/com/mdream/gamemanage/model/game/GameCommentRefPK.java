@@ -19,12 +19,12 @@ public class GameCommentRefPK implements Serializable{
 	 */
 	private static final long serialVersionUID = 199504084712734463L;
 	@Expose
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="gameId")
 	private Game game ;
 	
 	@Expose
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="commentId")
 	private GameComment comment;
 

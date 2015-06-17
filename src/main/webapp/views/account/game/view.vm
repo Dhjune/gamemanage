@@ -143,7 +143,8 @@ function initpicupdate(gameId,picId){
               <div class="col-md-4">
 					<p class="text-left" >
 					<span class="text-primary" >$!{game.name}
-                    </span>						
+                    </span>	
+					<a type="button" onclick="javascript:ws.get(this,'')" link="$!{urlTools.tr('/game/update?id=')}$!{game.id}"  class="btn btn-xs btn-success">修改</a>
                 </p>
 					 <img src="$!{game.img}" alt="..." class="img-thumbnail" style="width: 200px; height: 240px;">
 			  </div>
@@ -193,18 +194,22 @@ function initpicupdate(gameId,picId){
 						<br />
 						信息
                      </p> 
-        			#foreach($type in $!{game.getGametypes()})
+					 
+					 
+					 #foreach($ref in $!{game.getTypeRefs()})
         				     &nbsp;&nbsp;                    
 						       <p   class="text-success" style="display:inline-block">                       
-        						$!{type.name}
+        						$!{ref.pk.gameType.name}
         						<br >
 									
-        						<a href="#" link="$!{urlTools.tr('/game/type/ref/delete?gameId=')}$!{game.id}&typeId=$!{type.id}" onclick="ws.post(this,'game_type_view')" class="btn btn-xs btn-danger " role="button">删除</a> 
+        						<a href="#" link="$!{urlTools.tr('/game/type/ref/delete?gameId=')}$!{game.id}&typeId=$!{ref.pk.gameType.id}" onclick="ws.post(this,'game_type_view')" class="btn btn-xs btn-danger " role="button">删除</a> 
 								
                           </p>
                 
 						   				
 					#end
+					 
+        			
 					 &nbsp;&nbsp;  
 						<p   class="text-success" style="display:inline-block">                       
         						
@@ -235,7 +240,7 @@ function initpicupdate(gameId,picId){
 							$!{ref.pk.comment.content}			
 								<a href="#" onclick="initcommentupdate('$!{game.id}','$!{ref.pk.comment.id}')" class="btn btn-xs btn-info " data-toggle="modal" data-target="#commentUpdateModel" role="button">修改</a> 
         						<a href="#" link="$!{urlTools.tr('/game/comment/ref/delete?gameId=')}$!{game.id}&commentId=$!{ref.pk.comment.id}" onclick="ws.post(this,'game_comment_view')" class="btn btn-xs btn-danger " role="button">删除</a>
-								
+					
 								 </p>
             
 			#end
@@ -252,35 +257,35 @@ function initpicupdate(gameId,picId){
 		<h5 >
 			截图
         </h5>
-						<div class="row" id="game_pic_view">
-					
-						#foreach($pic in $!{game.getPics()})
+				<div class="row" id="game_pic_view">
+			
+				#foreach($pic in $!{game.getPics()})
+				
+                  <div class="col-sm-2">
+                      <img src="$!{pic.picUrl}" alt="" class="img-thumbnail" style="width: 140px; height: 140px;">
+                     
+                      
+                       
+                        <p class="text-center">
+							<a href="#"  onclick="initpicupdate('$!{game.id}','$!{pic.id}')" class="btn btn-xs btn-info " data-toggle="modal" data-target="#picUpdateModel" role="button">修改</a>
+							<a href="#" link="$!{urlTools.tr('/game/pic/delete?id=')}$!{pic.id}&gameId=$!{game.id}" onclick="ws.post(this,'game_pic_view')" class="btn btn-xs btn-danger" role="button">删除</a> </p>
 						
-                          <div class="col-sm-2">
-                              <img src="$!{pic.picUrl}" alt="" class="img-thumbnail" style="width: 140px; height: 140px;">
-                             
-                              
-                               
-                                <p class="text-center">
-									<a href="#"  onclick="initpicupdate('$!{game.id}','$!{pic.id}')" class="btn btn-xs btn-info " data-toggle="modal" data-target="#picUpdateModel" role="button">修改</a>
-									<a href="#" link="$!{urlTools.tr('/game/pic/delete?id=')}$!{pic.id}&gameId=$!{game.id}" onclick="ws.post(this,'game_pic_view')" class="btn btn-xs btn-danger" role="button">删除</a> </p>
-								
-                             
-                    
-                          </div>
-                        
-						#end
-						 <div class="col-sm-2">
-                              <img src="#" alt="..." class="img-thumbnail" style="width: 140px; height: 140px;">
-                             
-                              
-                          
-                                <p class="text-center"><a href="#" onclick="loadEditor()" class="btn btn-xs btn-primary " data-toggle="modal" data-target="#picModel" role="button">添加</a> </p>
-                             
-                    
-                          </div>
-						  						  
-					</div>							
+                     
+            
+                  </div>
+                
+				#end
+				 <div class="col-sm-2">
+                      <img src="#" alt="..." class="img-thumbnail" style="width: 140px; height: 140px;">
+                     
+                      
+                  
+                        <p class="text-center"><a href="#" onclick="loadEditor()" class="btn btn-xs btn-primary " data-toggle="modal" data-target="#picModel" role="button">添加</a> </p>
+                     
+            
+                  </div>
+				  						  
+			</div>							
 				
 		
 		<div class="modal fade" id="typeModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

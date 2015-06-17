@@ -52,10 +52,20 @@ public class GameController {
 	public String createGame(Game game,Model model){
 				
 		Map<String, String> reply =  new HashMap<String,String>();
-		try{			
-			gameServiceImp.save(game);
+		try{	
+			boolean exist =  gameServiceImp.exist(game);
+			gameServiceImp.save(game);			
 			reply.put("rcode", "1");
-			reply.put("message","操作成功");
+			if(exist){
+				
+				reply.put("message","添加成功，但是有重名情况！！");
+				
+			}else{
+				
+				reply.put("message","添加成功!!");
+				
+			}
+			
 		}catch(Exception e){
 			reply.put("rcode", "-1");
 			reply.put("message","错误异常");
@@ -114,6 +124,7 @@ public class GameController {
 	
 	
 	@RequestMapping(value="delete")
+	@Permission
 	@ResponseBody
 	public Map<String,String> delete(@RequestParam(value="id") int id){
 		Map<String,String> map = new HashMap<String,String>();
@@ -122,13 +133,13 @@ public class GameController {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
-		
+				
 		return map;		
 		
 	}
 	
 	@RequestMapping(value="recover")
+	@Permission
 	@ResponseBody
 	public String recover(@RequestParam(value="id") int id){
 		gameServiceImp.recover(id);
@@ -138,6 +149,7 @@ public class GameController {
 	
 	
 	@RequestMapping(value="view")
+	@Permission
 	public String view(Model model,@RequestParam(value="id") int id){
 		model.addAttribute("game",gameServiceImp.getGameInfo(id));
 		return"account/game/view";
@@ -224,14 +236,13 @@ public class GameController {
 		String url = ToolsFactory.urlTools.tr("/game/list%s");				
 		PageNav<Game> context =null;
 		Game game =  new Game();
-		int pageSize =  Constans.ACCOUNT_DEFAULT_PAGE_SIZE;
-		Map<String,Object> map = gameServiceImp.getGameList(list, game, pageIndex, pageSize);
-		List<Game> result =  (List<Game>) map.get("result");
-		long total =  (Long) map.get("total");
+		int pageSize =  Constans.ACCOUNT_DEFAULT_PAGE_SIZE;  
+		Map<String,Object> map = gameServiceImp.getGameList(list, game, pageIndex, pageSize);   
+		List<Game> result =  (List<Game>) map.get("result");   
+		long total =  (Long) map.get("total");   
 		context =  pageNavResolver.initPagenav(result, game, total, pageSize, pageIndex, url);	
-		System.out.println(total);
-		model.addAttribute("context", context);	
-		model.addAttribute("sign", "games");
+		model.addAttribute("context", context);	    
+		model.addAttribute("sign", "games");   
 		
 		return "account/game/search";	
 		

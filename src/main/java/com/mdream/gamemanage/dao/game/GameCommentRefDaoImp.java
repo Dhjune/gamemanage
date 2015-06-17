@@ -80,6 +80,8 @@ public class GameCommentRefDaoImp {
 		
 	}
 	
+	
+	
 	public void delete(Integer gameId,Integer commentId){
 		Session session  = sessionFactory.getCurrentSession();		
 		Query query =  session.createSQLQuery("delete from game_comment_ref where gameId=? and commentId=?");
@@ -88,7 +90,24 @@ public class GameCommentRefDaoImp {
 		query.executeUpdate();
 	}
 	
+	public void fakeDelete(Integer gameId,Integer commentId){
+		Session session  = sessionFactory.getCurrentSession();		
+		Query query =  session.createSQLQuery("update  game_comment_ref set status = 0 where gameId=? and commentId=?");
+		query.setParameter(0, gameId);
+		query.setParameter(1, commentId);	
+		query.executeUpdate();
+	}
+	
+	
 	public void deleteBygameId(int gameId){
+		Session session  = sessionFactory.getCurrentSession();		
+		Query query =  session.createSQLQuery("delete from game_comment_ref where gameId=?");
+		query.setParameter(0, gameId);
+		query.executeUpdate();
+	}
+	
+	public void fakeDeleteBygameId(int gameId){
+		
 		Session session  = sessionFactory.getCurrentSession();		
 		Query query =  session.createSQLQuery("delete from game_comment_ref where gameId=?");
 		query.setParameter(0, gameId);
@@ -97,7 +116,15 @@ public class GameCommentRefDaoImp {
 	
 	public void deleteBycommentId(int commentId){
 		Session session  = sessionFactory.getCurrentSession();		
-		Query query =  session.createSQLQuery("delete from game_comment_ref where commentId=?");
+		Query query =  session.createSQLQuery("update game_comment_ref set status = 0 where commentId=?");
+		query.setParameter(0, commentId);
+		query.executeUpdate();
+	}
+	
+	public void fakeDeleteBycommentId(int commentId){
+		
+		Session session  = sessionFactory.getCurrentSession();		
+		Query query =  session.createSQLQuery("update game_comment_ref set status=0 where commentId=?");
 		query.setParameter(0, commentId);
 		query.executeUpdate();
 	}

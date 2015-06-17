@@ -23,6 +23,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Where;
 
 import com.google.gson.annotations.Expose;
 
@@ -112,9 +113,15 @@ public class Game implements Serializable{
     @JoinTable(name="game_type_ref",
     joinColumns=@JoinColumn(name="gameId", referencedColumnName="id"),
     inverseJoinColumns=@JoinColumn(name="gameTypeId", referencedColumnName="id"))
+	@Where(clause="status = 1")
     private Set<GameType> gametypes = new  HashSet<GameType>();
 	
 	@OneToMany(mappedBy = "pk.game")
+	@Where(clause="status = 1")
+	private Set<GameTypeRef> typeRefs =  new  HashSet<GameTypeRef>();
+	
+	@OneToMany(mappedBy = "pk.game",fetch = FetchType.LAZY)
+	@Where(clause="status = 1")
 	private Set<GameCommentRef> commentRefs = new HashSet<GameCommentRef>();
 	
 	@OneToMany(mappedBy = "game")
@@ -301,6 +308,14 @@ public class Game implements Serializable{
 
 	public void setCommentRefs(Set<GameCommentRef> commentRefs) {
 		this.commentRefs = commentRefs;
+	}
+
+	public Set<GameTypeRef> getTypeRefs() {
+		return typeRefs;
+	}
+
+	public void setTypeRefs(Set<GameTypeRef> typeRefs) {
+		this.typeRefs = typeRefs;
 	}
 
 	

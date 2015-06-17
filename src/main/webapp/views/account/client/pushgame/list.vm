@@ -1,0 +1,117 @@
+	  
+  
+
+		
+        
+            	<div class="panel panel-default">
+                <div class="panel-heading">主推列表</div>                	
+                  <div class="panel-body">
+                <table class="table table-bordered">
+					
+                	
+                        		
+                    	 <tr>
+                    		<td>ID</td>
+                    		<td>游戏id</td>                		
+                    		<td>类型</td>
+                    		<td>游戏名称</td>
+							<td>序号</td>
+    						<td>操作</td> 
+                         </tr>
+    					 
+                            	#foreach($item in $!{context.list})
+                            		 <tr>
+                            			<td>$!{item.id}</td>
+										
+										<td>$!{item.gameId}</td>
+    									
+                            			<td>
+    										#if($!{item.type}==1)
+												推荐
+											#elseif($!{item.type}==2)
+												热门
+											#else
+												最新												
+											#end
+    										
+    									</td>
+    									
+                            			<td>
+                    						
+                    					$!{item.gameName}
+                    						
+                    					</td>
+    									
+                    					<td>
+                    						
+                    					$!{item.sort}
+                    						
+                    					</td>
+                    					<td>             						
+                    						<div class="btn-group" role="group" aria-label="...">
+                                              <a type="button" onclick="javascript:ws.get(this,'')" link="$!{urlTools.tr('/client/pushgame/update?pageIndex=')}$!{context.pageIndex}&id=$!{item.id}" class="btn btn-xs btn-success">修改</a>
+                    						  &nbsp;&nbsp;
+                                              <a type="button" onclick="javascript:ws.delback(this,'')" link="$!{urlTools.tr('/client/pushgame/delete?pageIndex=')}$!{context.pageIndex}&id=$!{item.id}" class="btn btn-xs btn-danger">删除 </a>                             
+                                            </div>
+                    						
+                    					</td>
+                                        
+                                     </tr>
+                            	#end
+                    </table>
+                		<div id="pageNav">
+                				<div class=" pull-left pagination">
+                    					<table class="table">
+                                         <tr>
+											<td>
+												<a type="button" onclick="javascript:ws.get(this,'')" link="$!{urlTools.tr('/client/pushgame/create')}" class="btn btn-sm btn-primary">添加</a>
+											</td>
+											<td>
+												<a type="button"  data-toggle="modal" data-target="#batchModel" class="btn btn-sm btn-primary">批量添加</a>
+											</td>
+											<td>
+												<a type="button"  data-toggle="modal" data-target="#batchModel" class="btn btn-sm btn-primary">批量修改</a>
+											</td>
+											
+											<td>
+											<form class="form-horizontal " stype="display:inline" id="downpage" action="$!{urlTools.tr('/client/pushgame/downpage?pageIndex=')}$!{context.pageIndex}" method="post" onsubmit ="return ws.initdown(this,'$!{sign}');" >
+           		  
+                                	
+                                			  <input type="hidden" name ="values" value="" />           		
+                                		
+                                            
+                                              <input type="submit"   class="btn btn-sm btn-primary" value="导出当前页"></input>
+                							  
+                							                                       
+                                        </form>	
+											
+											</td>
+											
+											<td>
+											<form class="form-horizontal " stype="display:inline" id="downloadAll" action="$!{urlTools.tr('/client/pushgame/downloadAll')}" method="post" onsubmit ="return ws.initdown(this,'$!{sign}');" >
+           		  
+                                	
+                                			  <input type="hidden" name ="values" value="" />           		
+                                		
+                                            
+                                              <input type="submit"   class="btn btn-sm btn-primary" value="导出全部"></input>
+                							  
+                							                                       
+                                        </form>	
+											
+											</td>
+										  </tr>
+                                        </table>
+                    				</div>
+								
+                    				#parse("/layout/pagenav.vm")
+								
+                           </div>
+                		   
+					</div>
+                </div>
+                		   
+			   
+			   
+ 
+

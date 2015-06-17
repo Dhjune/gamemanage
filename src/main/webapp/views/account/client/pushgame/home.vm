@@ -1,0 +1,215 @@
+	  
+  
+<div class="panel panel-default">
+<div class="panel-heading">主推游戏管理</div>
+	
+  <div class="panel-body">
+		
+		
+	
+	
+		<div class="highlight">
+			<div class="modal fade" id="batchModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">添加分类</h4>
+                  </div>
+                  <div class="modal-body">
+					<form role="form" class="form-horizontal" id="batchSaveOrUpdate" method="post" action="$!{urlTools.tr('/client/pushgame/batchSaveOrUpdate')}"  >					
+						<div class="form-group">
+                            <label class="col-sm-3 control-label">选择excel数据表</label>
+                            <div class="col-sm-4">
+                              <input  id="fortypeFile" type="file" name="pushFile"/>
+                            </div>
+                          </div>
+						
+						 
+						  						  
+                        </form>
+																		
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" link ="$!{urlTools.tr('/client/pushgame/list')}" onclick="ws.ajaxcreatecallback($('#batchSaveOrUpdate'),'#second_view','$!{sign}',this)" class="btn btn-primary" data-dismiss="modal">提交</button>
+                  </div>
+                </div>
+              </div>
+            </div>	
+			
+							
+    			<div id="search_view">	
+    			 <div class="thumbnail">
+        				<dl class="dl-horizontal ">
+                            
+							<dt>场景选择:</dt>
+                            <dd>  
+							<div class="radio-inline"> 
+								 <label class="radio-inline">
+							  <input type="radio" id="pushgame_type_1" sign="$!{sign}" upalias="" url ="$!{urlTools.tr('/client/pushgame/list')}" opgroup="AND" alias="pushgame" group="1" name="type" id="" operate="IS" onchange="javascript:ws.check(this);" value="1" >
+                                                                                                             推荐
+                           </label> 
+                           <label class="radio-inline">
+                                <input type="radio" id="pushgame_type_2" sign="$!{sign}" upalias="" url ="$!{urlTools.tr('/client/pushgame/list')}" opgroup="AND" alias="pushgame" group="1" name="type" id="" operate="IS" onchange="javascript:ws.check(this);" value="2" >
+								最热
+                           </label>
+						   
+						    <label class="radio-inline">
+                                <input type="radio" id="pushgame_type_3" sign="$!{sign}" upalias="" url ="$!{urlTools.tr('/client/pushgame/list')}" opgroup="AND" alias="pushgame" group="1" name="type" id="" operate="IS" onchange="javascript:ws.check(this);" value="3" >
+								最新
+                           </label>
+						   
+						  </div>
+							</dd>
+							<br />
+							<dt>有效性:</dt>
+							  <dd> 
+								<div class="radio-inline"> 
+								 <label class="radio-inline">
+							  <input type="radio" id="pushgame_status_true" sign="$!{sign}" upalias="" url ="$!{urlTools.tr('/client/pushgame/list')}" opgroup="AND" alias="pushgame" group="1" name="status" id="" operate="IS" onchange="javascript:ws.check(this);" value="1" >
+                                                                                                            有效
+                           </label> 
+                           <label class="radio-inline">
+                                <input type="radio" id="pushgame_status_false" sign="$!{sign}" upalias="" url ="$!{urlTools.tr('/client/pushgame/list')}" opgroup="AND" alias="pushgame" group="1" name="status" id="" operate="IS" onchange="javascript:ws.check(this);" value="0" >
+								 无效
+                           </label>
+						  </div>
+							</dd>	
+							<br />
+							<dt>展示排序:</dt>
+							  <dd> 
+								<div class="radio-inline"> 
+								 <label class="radio-inline">
+							  <input type="radio" id="pushgame_sort_asc" sign="$!{sign}" upalias="" url ="$!{urlTools.tr('/client/pushgame/list')}" opgroup="ORDER" alias="pushgame" group="1" name="sort" id="" operate="ASC" onchange="javascript:ws.check(this);" value="1" >
+                                                                                                           升序
+                           </label> 
+                           <label class="radio-inline">
+                                <input type="radio" id="pushgame_sort_desc" sign="$!{sign}" upalias="" url ="$!{urlTools.tr('/client/pushgame/list')}" opgroup="ORDER" alias="pushgame" group="1" name="sort" id="" operate="DESC" onchange="javascript:ws.check(this);" value="0" >
+								降序
+                           </label>
+						  </div>
+							</dd>		
+                          </dl>
+        			 </div>
+			    	   		
+    		<div id="second_view">
+            
+                	<div class="panel panel-default">
+                    <div class="panel-heading">主推列表 </div>                	
+                    <div class="panel-body">
+                    <table class="table table-bordered">
+    					
+                    	 <tr>
+                    		<td>ID</td>
+                    		<td>游戏id</td>                		
+                    		<td>类型</td>
+                    		<td>游戏名称</td> 
+							<td>序号</td>
+    						<td>操作</td> 
+                         </tr>
+    					 
+                            	#foreach($item in $!{context.list})
+                            		 <tr>
+                            			<td>$!{item.id}</td>
+										
+										<td>$!{item.gameId}</td>
+    									
+                            			<td>
+    										#if($!{item.type}==1)
+												推荐
+											#elseif($!{item.type}==2)
+												热门
+											#else
+												最新												
+											#end
+    										
+    									</td>
+    									
+                            			<td>
+                    						
+                    					$!{item.gameName}
+                    						
+                    					</td>
+    									<td>
+                    						
+                    					$!{item.sort}
+                    						
+                    					</td>
+                    					
+                    					<td>             						
+                    						<div class="btn-group" role="group" aria-label="...">
+                                              <a type="button" onclick="javascript:ws.get(this,'')" link="$!{urlTools.tr('/client/pushgame/update?pageIndex=')}$!{context.pageIndex}&id=$!{item.id}" class="btn btn-xs btn-success">修改</a>
+                    						  &nbsp;&nbsp;
+                                              <a type="button" onclick="javascript:ws.delback(this,'')" link="$!{urlTools.tr('/client/pushgame/delete?pageIndex=')}$!{context.pageIndex}&id=$!{item.id}" class="btn btn-xs btn-danger">删除 </a>                             
+                                            </div>
+                    						
+                    					</td>
+                                        
+                                     </tr>
+                            	#end
+                        </table>
+                    		<div id="pageNav">
+									
+								
+                    				<div class=" pull-left pagination">
+										
+										<table class="table">
+                                         <tr>
+											<td>
+												<a type="button" onclick="javascript:ws.get(this,'')" link="$!{urlTools.tr('/client/pushgame/create')}" class="btn btn-sm btn-primary">添加</a>
+											</td>
+											<td>
+												<a type="button"  data-toggle="modal" data-target="#batchModel" class="btn btn-sm btn-primary">批量添加</a>
+											</td>
+											<td>
+												<a type="button"  data-toggle="modal" data-target="#batchModel" class="btn btn-sm btn-primary">批量修改</a>
+											</td>
+											
+											<td>
+											<form class="form-horizontal " stype="display:inline" id="downpage" action="$!{urlTools.tr('/client/pushgame/downpage?pageIndex=')}$!{context.pageIndex}" method="post" onsubmit ="return ws.initdown(this,'$!{sign}');" >
+           		  
+                                	
+                                			  <input type="hidden" name ="values" value="" />           		
+                                		
+                                            
+                                              <input type="submit"   class="btn btn-sm btn-primary" value="导出当前页"></input>
+                							  
+                							                                       
+                                        </form>	
+											
+											</td>
+											
+											<td>
+											<form class="form-horizontal " stype="display:inline" id="downloadAll" action="$!{urlTools.tr('/client/pushgame/downloadAll')}" method="post" onsubmit ="return ws.initdown(this,'$!{sign}');" >
+           		  
+                                	
+                                			  <input type="hidden" name ="values" value="" />           		
+                                		
+                                            
+                                              <input type="submit"   class="btn btn-sm btn-primary" value="导出全部"></input>
+                							  
+                							                                       
+                                        </form>	
+											
+											</td>
+										  </tr>
+                                        </table>
+              					
+                    				</div>
+									
+                    				#parse("/layout/pagenav.vm")
+    								
+                               </div>
+                    		   
+                    </div>
+                    </div>
+                    		   
+    			   
+    			</div>   
+     
+    			</div>
+
+		</div>
+	</div>
+</div>	

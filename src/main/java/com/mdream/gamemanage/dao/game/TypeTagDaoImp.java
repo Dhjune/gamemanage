@@ -72,6 +72,16 @@ public class TypeTagDaoImp {
 			
 	}
 	
+	public void fakeDelete(int typeId,int tagId){
+		
+		Session session  =  sessionFactory.getCurrentSession();
+		Query query =  session.createSQLQuery("update type_tag_ref set status=0 where gameTypeId =? and tagId =?");
+		query.setParameter(0, typeId);
+		query.setParameter(1, tagId);
+		query.executeUpdate();
+		
+	}
+	
 	public void deleteByTypeId(int typeId){
 		
 		Session session  =  sessionFactory.getCurrentSession();
@@ -81,10 +91,25 @@ public class TypeTagDaoImp {
 		
 	}
 	
+	public void fakeDeleteByTypeId(int typeId){
+		Session session  =  sessionFactory.getCurrentSession();
+		Query query =  session.createSQLQuery("update type_tag_ref set status = 0 where gameTypeId =?");
+		query.setParameter(0, typeId);
+		query.executeUpdate();
+	}
+	
 	public void delteByTagId(int tagId){
 
 		Session session  =  sessionFactory.getCurrentSession();
 		Query query =  session.createSQLQuery("delete from type_tag_ref where tagId =?");
+		query.setParameter(0, tagId);
+		query.executeUpdate();
+		
+	}
+	
+	public void fakeDeleteByTagId(int tagId){
+		Session session  =  sessionFactory.getCurrentSession();
+		Query query =  session.createSQLQuery("update type_tag_ref set status =0 where tagId =?");
 		query.setParameter(0, tagId);
 		query.executeUpdate();
 		

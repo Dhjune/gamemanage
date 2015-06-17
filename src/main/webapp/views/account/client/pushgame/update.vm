@@ -1,0 +1,112 @@
+
+<script>
+			$(function() {
+			
+					$.getScript("$!{urlTools.ts('/kindeditor/kindeditor.js')}", function() {
+					
+						//KindEditor.create('textarea[name="content"]');
+						KindEditor.basePath = "$!{urlTools.ts('/kindeditor/')}";
+						KindEditor.pluginsPath = "$!{urlTools.ts('/kindeditor/plugins/')}";
+						var editor = KindEditor.editor({
+                       	allowFileManager: false,
+						allowUpload : true,
+						basePath : "$!{urlTools.ts('/kindeditor/')}",
+					pluginsPath : "$!{urlTools.ts('/kindeditor/plugins/')}",
+                        fileManagerJson: "$!{urlTools.tr('/ke/filelist')}",
+                		uploadJson: "$!{urlTools.tr('/ke/upload')}",
+                        urlType: 'domain',
+                        
+                        });	
+    			
+    					KindEditor('#ImageUrlBtn').click(function() {
+            				editor.loadPlugin('image', function() {
+            					editor.plugin.imageDialog({						
+            						imageUrl :  KindEditor('#ImageUrlImg').attr('src'),
+            						clickFn : function(url, title, width, height, border, align) {
+            				            
+            							KindEditor('#ImageUrlImg').attr('src',url );								 
+            							$('#imgUrl').val(url);							 
+            							editor.hideDialog();
+            						}
+            					});
+            				});
+            			});	
+						
+						
+					});
+					
+					$.getScript("$!{urlTools.ts('/kindeditor/lang/zh_CN.js')}", function() {
+			
+					});	
+			});
+		</script>
+
+
+<div class="panel panel-default">
+	
+<div class="panel-heading"><a href="#" onclick="ws.callback()" type="button" class="pull-right">
+	<span class="glyphicon glyphicon-fast-backward"  aria-hidden="true"></span> 返回列表
+</a>
+修改轮播项</div>
+	
+<div class="panel-body">
+	<div class="container marketing">
+		<div class="pull-right" style="width:160px; position: absolute;right: 80px;top: 100px;" id="update_alert_view">
+			
+		</div>
+		</div>
+	
+        <form class="form-horizontal"  action="$!{urlTools.tr('/client/pushgame/update')}" onsubmit="return ws.ajaxform($(this))">
+			<input type="hidden" name="id"  value = "$!{pushgame.id}">
+    			
+		<div class="form-group">
+            <label for="inputgameName" class="col-sm-2 control-label">游戏ID</label>
+            <div class="col-sm-4">
+              <input type="text"  class="form-control" name="gameId"  value = "$!{pushgame.gameId}" id="inputgameName" placeholder="">
+            </div>
+          </div>	 
+			 
+         <div class="form-group">
+            <label for="inputgameName" class="col-sm-2 control-label">游戏名称</label>
+            <div class="col-sm-4"> 
+              <input type="text"  class="form-control" name="gameName" value = "$!{pushgame.gameName}" id="inputgameName" placeholder="">
+            </div>
+          </div>
+			
+		  <div class="form-group">				
+              <label for="forlinkEmail" class="col-sm-2 control-label">主推类型<span id="forlinkEmail" style="color:red"> </span></label>		 
+			  <label class="radio-inline">
+                <input type="radio" name="type" id="type1" value="1" #if($!{pushgame.type}==1) checked #end >
+					首页
+              </label >
+              <label class="radio-inline">
+                <input type="radio" name="type" id="type2" value="2" #if($!{pushgame.type}==2) checked #end>
+					最热
+              </label>   
+			  
+			   <label class="radio-inline">
+                <input type="radio" name="type" id="type2" value="3" #if($!{pushgame.type}==3) checked #end>
+					最新
+              </label> 
+             </div>
+			 
+			 <div class="form-group">
+            <label for="inputgameName" class="col-sm-2 control-label">序号</label>
+            <div class="col-sm-4"> 
+              <input type="text"  class="form-control" name="sort" value = "$!{pushgame.sort}" id="inputsort" placeholder="">
+            </div>
+          </div>
+		
+		 <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit"  class="btn btn-success">保存</button>
+            </div>
+          </div>
+		  
+		  
+        </form>
+  </div>
+  
+  <div class="panel-footer"></div>
+</div>
+

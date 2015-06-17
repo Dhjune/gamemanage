@@ -22,7 +22,7 @@ import com.mdream.gamemanage.model.admin.Admin;
 
 @Service
 @Transactional
-public class AdminServiceImp implements BaseServiceItl{
+public class AdminServiceImp implements BaseServiceItl<Admin>{
 	
 	@Autowired
 	private AdminDaoImp adminDaoImp;
@@ -45,6 +45,10 @@ public class AdminServiceImp implements BaseServiceItl{
 		Admin newAdmin = adminDaoImp.find(admin.getName(),admin.getPassword());
 		
 		return newAdmin;
+		
+	}
+	public void saveOrUpdate(Admin t) {
+		// TODO Auto-generated method stub
 		
 	}
 	
