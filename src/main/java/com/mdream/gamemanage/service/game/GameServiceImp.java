@@ -67,6 +67,8 @@ public class GameServiceImp {
 			for(int i = 0;i<result.size();i++){
 				item = result.get(i);
 				item.getGametypes().size();
+				item.getCommentRefs().size();
+				item.getPics().size();
 			}
 		}
 		//记录数 

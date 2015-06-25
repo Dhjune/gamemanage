@@ -58,7 +58,21 @@
 								 无效
                            </label>
 						  </div>
-							</dd>						
+							</dd>	
+                          <br/>
+							<dt>按ID排序:</dt>
+							  <dd> 
+								<div class="radio-inline"> 
+								 <label class="radio-inline">
+							  <input type="radio" id="game_sort_asc" sign="$!{sign}" upalias="" url ="$!{urlTools.tr('/game/list')}" opgroup="ORDER" alias="game" group="1" name="id" id="" operate="ASC" onchange="javascript:ws.check(this);" value="1" >
+                                                                                                           升序
+                           </label> 
+                           <label class="radio-inline">
+                                <input type="radio" id="game_sort_desc" sign="$!{sign}" upalias="" url ="$!{urlTools.tr('/game/list')}" opgroup="ORDER" alias="game" group="1" name="id" id="" operate="DESC" onchange="javascript:ws.check(this);" value="0" >
+								降序
+                           </label>
+						  </div>
+							</dd>	
                           </dl>
         			 </div>
 			    
@@ -90,15 +104,16 @@
 											$!{type.name}&nbsp;
 											#end
 										</td>		
-									<td>#if($!{item.recommend}==1)
-										推荐
-									#end
-									#if($!{item.hotflag}==1)
-										热门  
-									#end
-									#if($!{item.nowflag}==1)
-										最新
-									#end
+									<td>
+			
+				                   
+										评价添加_<span class="text-primary">$!{item.getCommentRefs().size()}</span>
+										_条
+								
+									<br />
+								
+										图片添加_<span class="text-primary">$!{item.getPics().size()}</span>_张
+							
 									</td>
 										
                         			<td>

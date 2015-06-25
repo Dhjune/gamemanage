@@ -1,5 +1,6 @@
 package com.mdream.gamemanage.dao.game;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -49,7 +50,11 @@ public class GameDaoImp {
 		query.setParameter(0, game.getName());
 		List list = query.list();
 		if(list!=null && list.size()>0){
-			return true;
+			int count =  Integer.parseInt(list.get(0).toString());
+			
+			if(count> 0){
+				return true;
+			}
 		}
 		return false;
 		

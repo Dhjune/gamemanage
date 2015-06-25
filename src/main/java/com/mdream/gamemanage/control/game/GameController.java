@@ -67,10 +67,12 @@ public class GameController {
 			}
 			
 		}catch(Exception e){
+			e.printStackTrace();
 			reply.put("rcode", "-1");
 			reply.put("message","错误异常");
 		}
 		model.addAttribute("rdata", reply);
+		model.addAttribute("game", game);
 		return "account/game/success";
 		
 	}

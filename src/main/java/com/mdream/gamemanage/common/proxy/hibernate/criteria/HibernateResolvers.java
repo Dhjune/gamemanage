@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
@@ -351,6 +350,7 @@ public class HibernateResolvers {
 		return (T) value;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public <T> T getFieldByObject( Class t,String name,String value) throws NoSuchFieldException, SecurityException, ParseException{
 		
 		//ps . |都是转义字符，加上\\

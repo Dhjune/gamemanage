@@ -2,7 +2,7 @@
 <div class="panel panel-default">
 <div class="panel-heading">
 	
-创建分类
+分类添加
 	<a href="#" onclick="ws.callback()" type="button" class=" pull-right">
 	<span class="glyphicon glyphicon-fast-backward"  aria-hidden="true"></span> 返回列表
 </a></div>

@@ -2,7 +2,7 @@
 <div class="panel panel-default">
 <div class="panel-heading">
 	
-字条添加
+游戏添加
 	<a href="#" onclick="ws.callback()" type="button" class=" pull-right">
 	<span class="glyphicon glyphicon-fast-backward"  aria-hidden="true"></span> 返回列表
 </a></div>
@@ -20,8 +20,12 @@
 					<strong>$!{rdata.message}</strong></div>	
 		#end
 		
-    <a href="#" onclick="javascript:ws.get(this,'')" link="$!{urlTools.tr('/game/create')}" >
+    <a href="#" type="button" class="btn btn-sm btn-primary" onclick="javascript:ws.get(this,'')" link="$!{urlTools.tr('/game/create')}" >
     	 继续添加
+    </a>
+	
+	 <a href="#" type="button" class="btn btn-sm btn-info" onclick="javascript:ws.get(this,'')" link="$!{urlTools.tr('/game/view?id=')}$!{game.id}" >
+    	 游戏详情
     </a>
 	
   </div>  

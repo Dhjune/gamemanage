@@ -47,7 +47,7 @@ public class GameTypeRefDaoImp {
 		
 		Object result =	qsort.uniqueResult();
 		if(result !=null ){
-			sort =  (Integer) result;
+			sort =  Integer.parseInt(result.toString());
 		}
 		Query query =  session.createSQLQuery("insert into game_type_ref (gameId,gameTypeId,sort,createTime) values(?,?,?,now())");
 		query.setParameter(0, gameId);

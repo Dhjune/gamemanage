@@ -28,15 +28,16 @@
 											#end
 										</td>		
 									<td>
-									#if($!{item.recommend}==1)
-										推荐
-									#end
-									#if($!{item.hotflag}==1)
-										热门  
-									#end
-									#if($!{item.nowflag}==1)
-										最新
-									#end
+								
+										评价添加_<span class="text-primary">$!{item.getCommentRefs().size()}</span>
+										_条
+								
+									<br />
+								
+										图片添加_<span class="text-primary">$!{item.getPics().size()}</span>_张
+							
+									
+									
 									</td>
 										
                         			<td>
