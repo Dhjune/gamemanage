@@ -368,7 +368,6 @@ Ws.prototype.recover_view_data =  function (){
 				 $('#'+id).val(value);
 				 
 			 }else if(type=="radio"){
-				 
 				 $('#'+id).attr("checked","checked");
 				 
 			 }else if(type=="checkbox"){

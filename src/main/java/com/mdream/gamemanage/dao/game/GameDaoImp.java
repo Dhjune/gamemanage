@@ -67,6 +67,27 @@ public class GameDaoImp {
 		query.setParameter(0, id);
 		query.executeUpdate();
 	}
+
+	public List search(String name, Integer typeId) {
+		boolean hasName = false;
+		Session session  =  sessionFactory.getCurrentSession();
+		String sql = "select game.id ,game.name from game  where game.id not in(select ref.gameId from game_type_ref ref left join game_type type on ref.gameTypeId = "
+				+ " type.id where ref.gameTypeId =? and ref.status =1 and type.status=1) ";
+		if(name!=null && !name.equals("")){
+			sql += " and game.name like '%"+name+"%'";
+			hasName = true;
+		}
+		
+		Query query =  session.createSQLQuery(sql);
+		
+		query.setInteger(0, typeId);
+		
+		if(hasName){
+			//query.setString(1, "'%"+name+"%'");
+		}
+		System.out.println(query.toString());
+		return  query.list();
+	}
 	
 	
 	

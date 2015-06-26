@@ -139,6 +139,7 @@ public class GameTypeController {
 	public String getJsonList(){
 		
 		return ToolsFactory.gsonTools.getGson().toJson(gameTypeServiceImp.list());
+		
 	}
 	
 	@SuppressWarnings("unchecked")

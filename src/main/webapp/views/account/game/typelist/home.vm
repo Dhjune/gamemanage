@@ -10,7 +10,6 @@
 		        success : function(data, status, xhr) {  		       			
 					var v_str = "";
 		        	for(var i=0;i<data.length;i++){
-					console.log(data[i]);
 						v_str +=  "<label class='radio-inline'>";
 						v_str +=  "<input type='radio' id='game_type_"+data[i].id+"' sign='"+ref_sign+"' url='"+ref_url+"'  opgroup='"+"AND' alias='" +"ref' group='1' name='pk.gameType.id' operate='IS' onchange='javascript:ws.check(this);' value='"+data[i].id+"'>" +data[i].name+" </label>";
 						
@@ -171,6 +170,11 @@
                 				<div class=" pull-left pagination">
                     					<table class="table">
                                          <tr>											
+											<td>
+												
+											<a type="button" onclick="javascript:ws.get(this,'')" link="$!{urlTools.tr('/game/type/ref/create')}" class="btn btn-sm btn-primary">添加</a></td>
+											
+											<td>
 											
 											<td>
 												<a type="button"  data-toggle="modal" data-target="#batchgtRefModel" class="btn btn-sm btn-primary">批量修改</a>

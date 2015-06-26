@@ -38,6 +38,7 @@ import com.mdream.gamemanage.model.game.GameTypeRef;
 import com.mdream.gamemanage.model.resulttransformer.GameTypeTrans;
 import com.mdream.gamemanage.service.game.GameServiceImp;
 import com.mdream.gamemanage.service.game.GameTypeRefServiceImp;
+import com.mdream.gamemanage.service.game.GameTypeServiceImp;
 
 @Controller
 @RequestMapping(value="game/type/ref")
@@ -58,10 +59,17 @@ public class GameTypeRefController {
 	@Autowired
 	private JxlResolveImp jxlResolveImp;
 	
+	@Autowired
+	private  GameTypeServiceImp gameTypeServiceImp;
+	
 	@RequestMapping(value="create",method=RequestMethod.GET)
 	@Permission
 	public String create(Model model){
-		return "account/game/type/ref/create";
+		
+		model.addAttribute("types",gameTypeServiceImp.list());
+		
+		return "account/game/typelist/create";
+		
 	}
 	
 	
@@ -72,12 +80,27 @@ public class GameTypeRefController {
 		gameTypeRefServiceImp.insert(gameId, typeId);	
 		model.addAttribute("game", gameServiceImp.getGameInfo(gameId));
 		return "account/game/type/listofgame";
-		
-		
+				
 	}
 	
-	
-	
+	@RequestMapping(value="createInType",method=RequestMethod.POST)
+	@Permission
+	public String createInType(@RequestParam(value="gameId") int gameId,@RequestParam(value="typeId") int typeId,Model model){
+		
+		Map<String, String> reply =  new HashMap<String,String>();
+			try {
+				gameTypeRefServiceImp.insert(gameId, typeId);	
+				reply.put("rcode", "1");
+				reply.put("message","操作成功");
+			} catch (Exception e) {
+				reply.put("rcode", "-1");
+				reply.put("message","错误异常");
+			}
+		
+		model.addAttribute("rdata", reply);
+		
+		return "account/game/typelist/success";
+	}
 	
 	@RequestMapping(value="view")
 	@Permission

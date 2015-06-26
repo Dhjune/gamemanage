@@ -1,8 +1,13 @@
 package com.mdream.gamemanage.control.game;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.format.InputAccessor;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mdream.gamemanage.common.http.SyncHttpWork;
@@ -295,7 +301,6 @@ public class GameController {
 				e.printStackTrace();
 			}
 		
-		
 	}
 	
 	@RequestMapping(value="downloadAll")
@@ -330,6 +335,46 @@ public class GameController {
 				e.printStackTrace();
 			}
 		
-	}					
+	}	
+	
+	@RequestMapping(value="searchJson",produces = "application/json")
+	@ResponseBody
+	@Permission
+	public String searchJsonList(HttpServletRequest request){
+//		byte []  bytes =  new byte[1024];
+//		InputStream in=null;
+//		try {
+//			in = request.getInputStream();
+//			in.read(bytes);
+//			in.close();
+//			System.out.println(new String (bytes,"utf-8"));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}finally{
+//			try {
+//				in.close();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+//		
+		
+		String name =  request.getParameter("gameName");
+		if(name!=null && !name.equals("")){
+			try {
+				name= new String(name.getBytes("ISO-8859-1"),"UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		String typeId =  request.getParameter("typeId");
+		System.out.println(name);
+		Gson gson =new Gson();		
+		return gson.toJson(gameServiceImp.search(name, Integer.parseInt(typeId)));
+		
+	}
 	
 }

@@ -1,0 +1,134 @@
+
+
+<SCRIPT >
+$('#typeGameCreate').submit(function() {
+    jQuery.ajax({
+    url:"$!{urlTools.tr('/game/type/ref/createInType')}",
+    data:$('#typeGameCreate').serialize(),
+    type:"POST",  
+    success:function(data)
+    {
+        　		$("#container_iframe").html(data); 
+    }
+    });
+    return false;
+});
+
+
+function selectGameforType(target){
+	var url = "$!{urlTools.tr('/game/searchJson?typeId=')}";
+	var $target =  $(target);	
+	var value = $target.val();
+	url += value;
+	$.ajax({  
+        url : url,  
+        type : 'POST',  
+        data : null,           
+        dataType: 'json', 
+        success : function(data, status, xhr) {  
+        	//$(page_view).html(data);
+        	console.log(data);
+			
+			var v_str = "";
+        	for(var i=0;i<data.length;i++){
+				
+				v_str += "<option value='"+ data[i][0] +"'>"+ data[i][1] + "</option>";							
+			}
+			$("#select_game").html(v_str);
+        }
+	});
+}
+
+function  searchGameByNameAndType(){
+	var url = "$!{urlTools.tr('/game/searchJson')}";
+	var values = {};
+	
+	values.gameName = $('#gameName_search').val();
+	values.typeId = $('#select_Type').val();
+	url += "?typeId="+ values.typeId +"&gameName="+values.gameName;
+	$.ajax({  
+        url : url,  
+        type : 'POST',  
+        data :  null,
+		dataType: 'json',
+        contentType : 'application/json',  
+        success : function(data, status, xhr) {  
+        	//$(page_view).html(data);
+        	console.log(data);
+			
+			var v_str = "";
+        	for(var i=0;i<data.length;i++){
+				
+				v_str += "<option value='"+ data[i][0] +"'>"+ data[i][1] + "</option>";							
+			}
+			$("#select_game").html(v_str);
+        }
+	});
+}
+
+</SCRIPT>
+
+
+
+<div class="panel panel-default">
+<div class="panel-heading"><a href="#" onclick="ws.callback()" type="button" class=" pull-right">
+	<span class="glyphicon glyphicon-fast-backward"  aria-hidden="true"></span> 返回列表
+</a>添加主推游戏</div>
+	
+  <div class="panel-body">
+	
+        <form class="form-horizontal" id="typeGameCreate" action="" >
+			
+			
+		<div class="form-group">
+            <label for="inputgameName" class="col-sm-2 control-label">游戏ID</label>
+            <div class="col-sm-4">
+               <select class="form-control" name="typeId" id="select_Type" onchange="selectGameforType(this)">
+					<option value='0'>选择分类</option>
+					
+					#foreach($item in $!{types})
+						<option value='$!{item.id}'>$!{item.name}</option>
+					#end
+													
+               </select>
+            </div>
+          </div>	 
+			 
+         <div class="form-group">
+			  <label for="inputgameName" class="col-sm-2 control-label">游戏名称筛选</label>
+      
+		   
+            <div class="col-sm-4">
+             
+				
+                  
+                   <input type="text" id="gameName_search"  name="gameName">
+                       						  
+                   <button type="button" onclick="searchGameByNameAndType()" class="btn btn-default"><span class="glyphicon glyphicon-search"></span>搜索</button>
+				   
+            </div>
+          </div>
+			
+		  <div class="form-group">				
+             <label for="inputgameName" class="col-sm-2 control-label">游戏列表</label>
+            <div class="col-sm-4">
+               <select class="form-control" name="gameId" id="select_game" >
+					
+					
+										
+               </select>
+            </div>
+          </div>
+		
+		 <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit"  class="btn btn-success">保存</button>
+            </div>
+          </div>
+		  
+        </form>
+  </div>
+  
+  <div class="panel-footer"></div>
+</div>
+

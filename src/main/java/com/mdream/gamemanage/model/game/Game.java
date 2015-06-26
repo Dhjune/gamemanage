@@ -33,12 +33,11 @@ import com.google.gson.annotations.Expose;
 @DynamicInsert(value=true)
 @DynamicUpdate(value=true)
 public class Game implements Serializable{
-	
-	
+		
 	/**
 	 * long
 	 *TODO
-	 */
+	 */	
 	private static final long serialVersionUID = -1047816162830139479L;
 	
 	@Id

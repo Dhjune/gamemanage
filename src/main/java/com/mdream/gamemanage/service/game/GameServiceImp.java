@@ -170,18 +170,23 @@ public class GameServiceImp {
 	
 
 	public List<Game> getAll(List<ExpressionGroup> list, Game game) throws NoSuchFieldException, SecurityException, ParseException {
+		
 		Criteria criteria =  hibernateResolversService.getCriteria(list, game);	
 		if(list==null || list.size()<1){
-			criteria.add( Restrictions.eq(criteria.getAlias()+".status",1));
-			
-			
+			criteria.add( Restrictions.eq(criteria.getAlias()+".status",1));			
 		}
+		
 		criteria.setCacheable(true);
 		List<Game> result = criteria.list();
 		
 		return result;
 	}
 	
-	
+	public List search(String name,Integer typeId){
+		
+		return gameDaoImp.search(name,typeId);
+		
+		
+	}
 
 }

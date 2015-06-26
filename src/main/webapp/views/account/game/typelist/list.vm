@@ -61,7 +61,11 @@
                 				<div class=" pull-left pagination">
                     					<table class="table">
                                          <tr>											
+											<td>
+												
+											<a type="button" onclick="javascript:ws.get(this,'')" link="$!{urlTools.tr('/game/type/ref/create')}" class="btn btn-sm btn-primary">添加</a></td>
 											
+											<td>
 											<td>
 												<a type="button"  data-toggle="modal" data-target="#batchgtRefModel" class="btn btn-sm btn-primary">批量修改</a>
 											</td>

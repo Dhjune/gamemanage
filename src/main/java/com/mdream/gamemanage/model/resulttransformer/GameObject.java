@@ -4,8 +4,6 @@ package com.mdream.gamemanage.model.resulttransformer;
 
 public class GameObject {
 	
-	
-
 	private Integer id;
 	
 	private String name;
