@@ -69,8 +69,42 @@
                     </table>
                 		<div id="pageNav">
                 				<div class=" pull-left pagination">
-                					<a type="button" onclick="javascript:ws.get(this,'')" link="$!{urlTools.tr('/game/create')}" class="btn btn-sm btn-primary">新建游戏</a>
-                				</div> 
+                					<table class="table">
+                                         <tr>											
+											
+											<td>
+											<a type="button" onclick="javascript:ws.get(this,'')" link="$!{urlTools.tr('/game/create')}" class="btn btn-sm btn-primary">新建游戏</a></td>
+											
+											<td>
+											<form class="form-horizontal " stype="display:inline" id="downpage" action="$!{urlTools.tr('/game/downpage?pageIndex=')}$!{context.pageIndex}" method="post" onsubmit ="return ws.initdown(this,'$!{sign}');" >
+           		  
+                                	
+                                			  <input type="hidden" name ="values" value="" />           		
+                                		
+                                            
+                                              <input type="submit"   class="btn btn-sm btn-primary" value="导出当前页"></input>
+                							  
+                							                                       
+                                        </form>	
+											
+											</td>
+											
+											<td>
+											<form class="form-horizontal " stype="display:inline" id="downloadAll" action="$!{urlTools.tr('/game/downloadAll')}" method="post" onsubmit ="return ws.initdown(this,'$!{sign}');" >
+           		  
+                                	
+                                			  <input type="hidden" name ="values" value="" />           		
+                                		
+                                            
+                                              <input type="submit"   class="btn btn-sm btn-primary" value="导出全部"></input>
+                							  
+                							                                       
+                                        </form>	
+											
+											</td>
+										  </tr>
+                                        </table>
+								</div> 
                 				
                 				#parse("/layout/pagenav.vm")
 								

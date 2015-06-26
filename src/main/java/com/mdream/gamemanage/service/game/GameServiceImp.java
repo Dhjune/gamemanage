@@ -24,6 +24,7 @@ import com.mdream.gamemanage.dao.game.GamePicDaoImp;
 import com.mdream.gamemanage.dao.game.GameTypeDaoImp;
 import com.mdream.gamemanage.dao.game.GameTypeRefDaoImp;
 import com.mdream.gamemanage.model.game.Game;
+import com.mdream.gamemanage.model.game.GameTypeRef;
 import com.mdream.gamemanage.model.game.Tag;
 @Service
 @Transactional(value=TxType.NOT_SUPPORTED)
@@ -165,6 +166,20 @@ public class GameServiceImp {
 		
 		return gameDaoImp.exist(game);
 		
+	}
+	
+
+	public List<Game> getAll(List<ExpressionGroup> list, Game game) throws NoSuchFieldException, SecurityException, ParseException {
+		Criteria criteria =  hibernateResolversService.getCriteria(list, game);	
+		if(list==null || list.size()<1){
+			criteria.add( Restrictions.eq(criteria.getAlias()+".status",1));
+			
+			
+		}
+		criteria.setCacheable(true);
+		List<Game> result = criteria.list();
+		
+		return result;
 	}
 	
 	
