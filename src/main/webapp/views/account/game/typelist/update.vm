@@ -5,7 +5,7 @@
 <div class="panel-heading"><a href="#" onclick="ws.callback()" type="button" class="pull-right">
 	<span class="glyphicon glyphicon-fast-backward"  aria-hidden="true"></span> 返回列表
 </a>
-修改序号</div>
+修改分类游戏</div>
 	
 <div class="panel-body">
 		<div class="container marketing">

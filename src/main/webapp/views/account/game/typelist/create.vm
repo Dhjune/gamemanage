@@ -73,7 +73,7 @@ function  searchGameByNameAndType(){
 <div class="panel panel-default">
 <div class="panel-heading"><a href="#" onclick="ws.callback()" type="button" class=" pull-right">
 	<span class="glyphicon glyphicon-fast-backward"  aria-hidden="true"></span> 返回列表
-</a>添加主推游戏</div>
+</a>添加分类游戏</div>
 	
   <div class="panel-body">
 	
