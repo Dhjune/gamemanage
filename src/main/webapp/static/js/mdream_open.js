@@ -646,8 +646,7 @@ Ws.prototype.selectval = function (target){
 			op["expressions"].push(nexpress);
 			m_data[sign].push(op);
 			
-		}
-		console.log(m_data[sign]);
+		}	
 	}
 } 
 

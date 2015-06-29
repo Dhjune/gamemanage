@@ -57,8 +57,7 @@ public class PushGameDaoImp implements BaseDaoItl<PushGame>{
 		}else{
 			pg.setModifyTime(new Date());
 		}
-		session.saveOrUpdate(pg);
-		
+		session.saveOrUpdate(pg);				
 	}
 
 	

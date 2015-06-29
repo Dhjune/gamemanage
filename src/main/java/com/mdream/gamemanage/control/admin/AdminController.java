@@ -3,6 +3,7 @@ package com.mdream.gamemanage.control.admin;
 import java.text.ParseException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mdream.gamemanage.common.inteceptor.Permission;
@@ -41,13 +43,27 @@ public class AdminController {
 		
 	}
 	
-	@RequestMapping(value="admin/中文测试",method=RequestMethod.GET)
+	@RequestMapping(value="admin/中文测试")
 	@ResponseBody
-	public String String (){
+	public String String (HttpServletRequest request,@RequestParam(value="name") String name){
+		
+		String rname =  request.getParameter("name");
+		System.out.println(rname);
+		System.out.println(name);
 		StringHttpMessageConverter s = null;
 		return "中文测试sgsfedhrfjy";
 	}
 	
+	@RequestMapping(value="admin/test")
+	@ResponseBody
+	public String forString (HttpServletRequest request){
+		
+		String rname =  request.getParameter("name");
+		System.out.println(rname);
+	//	System.out.println(name);
+		StringHttpMessageConverter s = null;
+		return "中文测试sgsfedhrfjy";
+	}
 	
 	@RequestMapping(value="admin/login",method=RequestMethod.POST)
 	public String login(Admin admin ,Model model,HttpServletResponse response,HttpSession session){

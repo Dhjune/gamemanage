@@ -389,10 +389,33 @@
                         </form>	
                             </div>
                         </td>
+						<!--
+						<td >
+                    
+							<div class="col-xs-6 col-sm-3 placeholder">
+							
+							
+							<form class="form-horizontal" id="appCreate22" action="$!{urlTools.tr('/admin/test')}" method="post" >
+										
+                    		   <div class="form-group">
+                                  	<label for="forslideFile" >中文</label>
+                    			 
+        							<input  type="text"  name="name" value=""/>
+                    			  
+                                </div> 
+                			<!-- 
+                		 <textarea name="content" style="width:700px;height:200px;visibility:hidden;">KindEditor</textarea>
+                		 -->
+                		 <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                              <button type="submit"  class="btn btn-success">保存</button>
+                            </div>
+                          </div>
+                        </form>	
+                            </div>
 						
-						
-						
-						
+						    </td>
+							-->
                     </tr>
 					
 					
@@ -407,6 +430,10 @@
            </div>
         </div>
 		
+		<!--分隔符 -->
+	
+							
+							
 		
 		
       </div>

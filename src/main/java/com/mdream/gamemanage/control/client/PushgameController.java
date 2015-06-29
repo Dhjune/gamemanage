@@ -186,7 +186,7 @@ public class PushgameController {
 			
 			List<PushGame> result =  (List<PushGame>) map.get("result");
 			String[][] titles = new String[][]{
-				{"id","gameId","gameName","sort","status"},{"选送id","游戏id","游戏名称","排序","状态"}
+				{"id","type","gameId","gameName","sort","status"},{"选送id","选送类型","游戏id","游戏名称","排序","状态"}
 			};
 			
 			jxlResolveImp.reading(titles, syncHttpWork.createFile(".xls", com.mdream.gamemanage.common.tools.Constans.FILE_BASE_SAVE_PATH), result, PushGame.class, response);
@@ -213,7 +213,7 @@ public class PushgameController {
 		    List<PushGame> result= pushGameServiceImp.getAll(list, pg);
 			
 			String[][] titles = new String[][]{
-				{"id","gameId","gameName","sort","status"},{"选送id","游戏id","游戏名称","排序","状态"}
+					{"id","type","gameId","gameName","sort","status"},{"选送id","选送类型","游戏id","游戏名称","排序","状态"}
 			};
 			
 			jxlResolveImp.reading(titles, syncHttpWork.createFile(".xls", com.mdream.gamemanage.common.tools.Constans.FILE_BASE_SAVE_PATH), result, PushGame.class, response);
